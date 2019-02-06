@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:sqlcool/sqlcool.dart';
-import 'models.dart';
+import '../models/geopoint.dart';
 
 saveGeoPoint(
     {@required String name,

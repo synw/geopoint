@@ -9,7 +9,7 @@ initGeoDb(
   /// [database] is the database to use, defaults to the
   /// default Sqlcool database
   /// [verbose] print the query
-  String q = """CREATE TABLE geopoint (
+  String q2 = """CREATE TABLE geopoint (
     id INTEGER PRIMARY KEY,
     name TEXT NOT NULL,
     latitude REAL NOT NULL,
@@ -27,10 +27,15 @@ initGeoDb(
     postal_code VARCHAR(60),
     subregion VARCHAR(60),
     region VARCHAR(60),
-    country VARCHAR(60)
-    )""";
+    country VARCHAR(60),
+    geoserie INTEGER NOT NULL,
+    FOREIGN KEY (geoserie) REFERENCES geoserie(id) ON DELETE CASCADE)""";
+  String q = """CREATE TABLE geoserie (
+    id INTEGER PRIMARY KEY,
+    name VARCHAR(30) NOT NULL,
+    type check(type = "marker" or type = "line" or type="polygon") DEFAULT "marker")""";
   await database
-      .init(path: dbpath, queries: <String>[q], verbose: verbose)
+      .init(path: dbpath, queries: <String>[q, q2], verbose: verbose)
       .catchError((e) {
     throw (e);
   });
