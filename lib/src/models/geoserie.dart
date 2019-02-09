@@ -2,7 +2,9 @@ import 'package:flutter/foundation.dart';
 import 'package:sqlcool/sqlcool.dart';
 
 class GeoSerie {
-  GeoSerie({this.name, this.serieType});
+  GeoSerie({@required this.name, @required this.serieType})
+      : assert(name != null),
+        assert(serieType != null);
 
   String name;
   String serieType;

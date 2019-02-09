@@ -4,9 +4,9 @@ import 'package:sqlcool/sqlcool.dart';
 
 class GeoPoint {
   GeoPoint(
-      {@required String name,
-      @required Position position,
-      Placemark placemark}) {
+      {@required String name, @required Position position, Placemark placemark})
+      : assert(name != null),
+        assert(position != null) {
     this.name = name;
     this.timestamp = position.timestamp.millisecondsSinceEpoch;
     this.position = position;
