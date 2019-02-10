@@ -50,7 +50,7 @@ class GeoPoint {
   String region;
   String country;
 
-  get address => getAddress();
+  get address => _getAddress();
 
   GeoPoint.fromJson(Map<String, dynamic> json)
 
@@ -108,10 +108,19 @@ class GeoPoint {
     str += "Speed: $speed\n";
     str += "Heading: $heading\n";
     if (placemark != null) {
-      str += getAddress();
+      str += _getAddress();
     }
     return str;
   }
+
+  String _getAddress() {
+    /// get a formated address from this geopoint
+    String address = "$number $street $locality ";
+    address += "$postalCode $subregion $region $country";
+    return address;
+  }
+
+  // Crud methods
 
   save({@required Db database, bool verbose = false}) async {
     /// save a geopoint into a database
@@ -131,12 +140,5 @@ class GeoPoint {
     } catch (e) {
       throw (e);
     }
-  }
-
-  String getAddress() {
-    /// get a formated address from this geopoint
-    String address = "$number $street $locality ";
-    address += "$postalCode $subregion $region $country";
-    return address;
   }
 }

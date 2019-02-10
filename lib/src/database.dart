@@ -33,7 +33,7 @@ initGeoDb(
   String q = """CREATE TABLE geoserie (
     id INTEGER PRIMARY KEY,
     name VARCHAR(30) NOT NULL,
-    type check(type = "marker" or type = "line" or type="polygon") DEFAULT "marker")""";
+    type check(type = "group" or type = "line" or type="polygon") DEFAULT "marker")""";
   await database
       .init(path: dbpath, queries: <String>[q, q2], verbose: verbose)
       .catchError((e) {
