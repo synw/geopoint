@@ -16,9 +16,7 @@ dependencies:
   flutter:
     sdk: flutter
   geolocator: '^2.1.1'
-  #sqlcool: ^1.1.2
-  sqlcool:
-    path: ../sqlcool
+  sqlcool: ^1.1.2
   
   
 

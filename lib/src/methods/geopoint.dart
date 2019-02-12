@@ -9,6 +9,7 @@ saveGeoPoint(
     @required Db database,
     GeoPoint geopoint,
     bool withAddress: false,
+    int serieId,
     verbose: false}) async {
   /// get a geopoint and record it into the database
   /// [name] the geopoint identifier
@@ -16,6 +17,7 @@ saveGeoPoint(
   /// [withAddress] add the address information
   /// [verbose] print info
   GeoPoint gp;
+
   (geopoint == null)
       ? gp = await getGeoPoint(
           name: name, withAddress: withAddress, verbose: verbose)
@@ -23,7 +25,10 @@ saveGeoPoint(
   if (verbose) {
     print("GEOPOINT $gp");
   }
-  await gp.save(database: database, verbose: verbose).catchError((e) {
+
+  await gp
+      .save(database: database, verbose: verbose, serieId: serieId)
+      .catchError((e) {
     throw (e);
   });
 }

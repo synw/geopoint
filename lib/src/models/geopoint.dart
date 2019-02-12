@@ -122,16 +122,19 @@ class GeoPoint {
 
   // Crud methods
 
-  save({@required Db database, bool verbose = false}) async {
+  save({@required Db database, bool verbose = false, int serieId}) async {
     /// save a geopoint into a database
     /// [database] is the database to use
     /// [verbose] print query info
+    /// [serieId] the serie foreign key
     if (verbose) {
-      print(
-          "SAVING GEOPOINT ${this.latitude}/${this.longitude} TO DB $database");
+      print("SAVING GEOPOINT $latitude/$longitude INTO DB $database");
     }
     Map<String, String> row = toMap();
     try {
+      if (serieId != null) {
+        row["geoserie"] = "$serieId";
+      }
       await database
           .insert(table: "geopoint", row: row, verbose: verbose)
           .catchError((e) {

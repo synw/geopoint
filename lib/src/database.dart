@@ -28,7 +28,7 @@ initGeoDb(
     subregion VARCHAR(60),
     region VARCHAR(60),
     country VARCHAR(60),
-    geoserie INTEGER NOT NULL,
+    geoserie INTEGER,
     FOREIGN KEY (geoserie) REFERENCES geoserie(id) ON DELETE CASCADE)""";
   String q = """CREATE TABLE geoserie (
     id INTEGER PRIMARY KEY,
