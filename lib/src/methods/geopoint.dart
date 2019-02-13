@@ -4,7 +4,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:sqlcool/sqlcool.dart';
 import '../models/geopoint.dart';
 
-saveGeoPoint(
+Future<GeoPoint> saveGeoPoint(
     {@required String name,
     @required Db database,
     GeoPoint geopoint,
@@ -31,6 +31,7 @@ saveGeoPoint(
       .catchError((e) {
     throw (e);
   });
+  return gp;
 }
 
 Future<GeoPoint> getGeoPoint(
