@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 
 class PositionStream {
@@ -22,6 +23,11 @@ class PositionStream {
         : _locationOptions = LocationOptions(
             accuracy: LocationAccuracy.best,
             timeInterval: (timeInterval * 1000));
-    _positionStream = Geolocator().getPositionStream(_locationOptions);
+    try {
+      _positionStream =
+          Geolocator().getPositionStream(_locationOptions).asBroadcastStream();
+    } catch (e) {
+      throw (e.message);
+    }
   }
 }
