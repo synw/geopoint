@@ -1,6 +1,5 @@
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter/foundation.dart';
-import 'package:sqlcool/sqlcool.dart';
 
 class GeoPoint {
   GeoPoint(
@@ -118,30 +117,5 @@ class GeoPoint {
     String address = "$number $street $locality ";
     address += "$postalCode $subregion $region $country";
     return address;
-  }
-
-  // Crud methods
-
-  save({@required Db database, bool verbose = false, int serieId}) async {
-    /// save a geopoint into a database
-    /// [database] is the database to use
-    /// [verbose] print query info
-    /// [serieId] the serie foreign key
-    if (verbose) {
-      print("SAVING GEOPOINT $latitude/$longitude INTO DB $database");
-    }
-    Map<String, String> row = toMap();
-    try {
-      if (serieId != null) {
-        row["geoserie"] = "$serieId";
-      }
-      await database
-          .insert(table: "geopoint", row: row, verbose: verbose)
-          .catchError((e) {
-        throw (e);
-      });
-    } catch (e) {
-      throw (e);
-    }
   }
 }

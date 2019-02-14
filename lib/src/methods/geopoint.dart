@@ -1,41 +1,9 @@
 import 'dart:async';
-import 'package:flutter/foundation.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:sqlcool/sqlcool.dart';
 import '../models/geopoint.dart';
 
-Future<GeoPoint> saveGeoPoint(
-    {@required String name,
-    @required Db database,
-    GeoPoint geopoint,
-    bool withAddress: false,
-    int serieId,
-    verbose: false}) async {
-  /// get a geopoint and record it into the database
-  /// [name] the geopoint identifier
-  /// [database] the Db to save into
-  /// [withAddress] add the address information
-  /// [verbose] print info
-  GeoPoint gp;
-
-  (geopoint == null)
-      ? gp = await getGeoPoint(
-          name: name, withAddress: withAddress, verbose: verbose)
-      : gp = geopoint;
-  if (verbose) {
-    print("GEOPOINT $gp");
-  }
-
-  await gp
-      .save(database: database, verbose: verbose, serieId: serieId)
-      .catchError((e) {
-    throw (e);
-  });
-  return gp;
-}
-
 Future<GeoPoint> getGeoPoint(
-    {@required String name,
+    {String name,
     bool withAddress: false,
     locationAccuracy: LocationAccuracy.best,
     verbose: false}) async {
@@ -44,6 +12,7 @@ Future<GeoPoint> getGeoPoint(
   /// [withAddress] add the address information
   /// [locationAccuracy] the desired accuracy for the geopoint
   /// [verbose] print info
+  name = name ?? "Current position";
   GeoPoint geoPoint;
   Position position =
       await Geolocator().getCurrentPosition(desiredAccuracy: locationAccuracy);
