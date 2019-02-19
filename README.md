@@ -63,7 +63,7 @@ Methods:
    Map<String, String> json = geoPoint.toMap();
    ```
 
-## GeoSerie
+### GeoSerie
 
 Datastructure:
 
