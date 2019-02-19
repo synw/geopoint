@@ -16,6 +16,7 @@ dependencies:
   flutter:
     sdk: flutter
   geolocator: ^2.1.1
+  slugify2: ^0.2.0
   permission_handler: "2.1.2"
   google_api_availability: "1.0.4"
   

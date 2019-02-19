@@ -1,15 +1,20 @@
-import 'package:geolocator/geolocator.dart';
+import 'dart:io';
 import 'package:flutter/foundation.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:slugify2/slugify.dart';
+
+Slugify slugify = new Slugify();
 
 class GeoPoint {
   GeoPoint(
-      {@required String name, @required Position position, Placemark placemark})
+      {@required this.name,
+      @required this.position,
+      this.placemark,
+      this.images})
       : assert(name != null),
         assert(position != null) {
-    this.name = name;
+    this.slug = slugify.slugify(name);
     this.timestamp = position.timestamp.millisecondsSinceEpoch;
-    this.position = position;
-    this.placemark = placemark;
     this.latitude = position.latitude;
     this.longitude = position.longitude;
     this.altitude = position.altitude;
@@ -29,8 +34,9 @@ class GeoPoint {
     }
   }
 
-  String name;
-  num timestamp;
+  final String name;
+  String slug;
+  int timestamp;
   Position position;
   Placemark placemark;
   double latitude;
@@ -48,6 +54,7 @@ class GeoPoint {
   String subregion;
   String region;
   String country;
+  List<File> images;
 
   get address => _getAddress();
 
@@ -56,6 +63,7 @@ class GeoPoint {
       /// build this geopoint from json data
       /// [json] the json data to build from
       : name = json["name"],
+        slug = slugify.slugify(json["name"]),
         timestamp = json["timestamp"],
         latitude = json["latitude"],
         longitude = json["longitude"],

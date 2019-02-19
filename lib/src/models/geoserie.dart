@@ -5,9 +5,9 @@ class GeoSerie {
       : assert(name != null),
         assert(serieType != null);
 
-  String name;
-  int id;
-  String serieType;
+  final String name;
+  final int id;
+  final String serieType;
 
   GeoSerie.fromJson(Map<String, dynamic> json)
 
