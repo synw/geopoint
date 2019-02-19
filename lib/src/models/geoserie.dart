@@ -17,7 +17,13 @@ class GeoSerie {
         id = json["id"],
         serieType = json["type"];
 
-  Map<String, String> toMap({bool withId: false}) {
+  GeoSerie.fromNameAndSerieType(
+      {@required String name, @required String serieType, int id})
+      : name = name,
+        serieType = serieType,
+        id = id;
+
+  Map<String, String> toMap({bool withId: true}) {
     /// get a json map from this serie
     Map<String, String> json = {
       "name": "$name",
