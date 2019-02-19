@@ -70,7 +70,9 @@ Datastructure:
    ```dart
    final String name; // required
    final int id;
-   final String serieType;  // required
+   final GeoSerieType type;  // one of GeoSerieType.group
+                             // GeoSerieType.line or
+                             // GeoSerieType.polygon
    ```
 
 Constructors:
@@ -80,14 +82,15 @@ Constructors:
    Map<String, dynamic> json = {
        "name": "A polygon",
        "id":1,
-       "serieType": "polygon",
+       "type": "polygon",
    }
    GeoSerie geoSerie = GeoSerie.fromJson(json);
 
    // from strings
-   GeoSerie geoSerie = GeoSerie.fromNameAndSerieType(
+   GeoSerie geoSerie = GeoSerie.fromNameAndType(
        name: "A polygon",
-       serieType: "polygon",
+       type: GeoSerieType.polygon,
+       // or typeStr: "polygon"
    );
    ```
 
@@ -96,4 +99,7 @@ Methods:
    ```dart
    // convert to json
    Map<String, String> json = geoSerie.toMap();
+
+   // get the type as a string
+   String type = geoSerie.typeStr;
    ```
