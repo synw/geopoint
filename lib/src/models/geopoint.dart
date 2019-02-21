@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:latlong/latlong.dart';
 import 'package:slugify2/slugify.dart';
 
 Slugify slugify = new Slugify();
@@ -8,6 +9,7 @@ Slugify slugify = new Slugify();
 class GeoPoint {
   GeoPoint(
       {@required this.name,
+      this.id,
       @required this.position,
       this.placemark,
       this.images})
@@ -36,6 +38,7 @@ class GeoPoint {
 
   final String name;
   String slug;
+  int id;
   int timestamp;
   Position position;
   Placemark placemark;
@@ -57,6 +60,7 @@ class GeoPoint {
   List<File> images;
 
   get address => _getAddress();
+  get point => LatLng(latitude, longitude);
 
   GeoPoint.fromJson(Map<String, dynamic> json)
 
