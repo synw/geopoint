@@ -66,16 +66,17 @@ class GeoPoint {
 
       /// build this geopoint from json data
       /// [json] the json data to build from
-      : name = json["name"],
+      : id = int.tryParse(json["id"]),
+        name = json["name"],
         slug = slugify.slugify(json["name"]),
-        timestamp = json["timestamp"],
-        latitude = json["latitude"],
-        longitude = json["longitude"],
-        altitude = json["altitude"],
-        speed = json["speed"],
-        accuracy = json["accuracy"],
-        speedAccuracy = json["speed_accuracy"],
-        heading = json["heading"],
+        timestamp = int.tryParse(json["timestamp"]),
+        latitude = double.tryParse(json["latitude"]),
+        longitude = double.tryParse(json["longitude"]),
+        altitude = double.tryParse(json["altitude"]),
+        speed = double.tryParse(json["speed"]),
+        accuracy = double.tryParse(json["accuracy"]),
+        speedAccuracy = double.tryParse(json["speed_accuracy"]),
+        heading = double.tryParse(json["heading"]),
         number = json["number"],
         street = json["street"],
         locality = json["locality"],
@@ -85,7 +86,7 @@ class GeoPoint {
         region = json["region"],
         country = json["country"];
 
-  Map<String, String> toMap() {
+  Map<String, String> toStringsMap({bool withId = true}) {
     /// get a json map from this geopoint
     Map<String, String> json = {
       "name": "$name",
@@ -106,6 +107,7 @@ class GeoPoint {
       "region": "$region",
       "country": "$country",
     };
+    if (withId) json["id"] = "$id";
     return json;
   }
 
