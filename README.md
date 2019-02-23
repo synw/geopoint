@@ -51,11 +51,11 @@ Constructors:
    GeoPoint geoPoint = GeoPoint.fromJson(json);
    ```
 
-Methods:
+Methods and getters:
 
    ```dart
    // get the current location as a GeoPoint
-   GeoPoint geoPoint = await getGeoPoint(name: "My location", withAddress: true);
+   GeoPoint geoPoint = await GeoPoint.getPosition(name: "Current position");;
    // get the formated address
    String address = geoPoint.address;
 
@@ -94,7 +94,7 @@ Constructors:
    );
    ```
 
-Methods:
+Methods and getters:
 
    ```dart
    // convert to json

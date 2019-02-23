@@ -5,7 +5,7 @@ class _MyHomePageState extends State<MyHomePage> {
   GeoPoint geoPoint;
 
   setGeoPoint() {
-    getGeoPoint(verbose: true).then((p) {
+    GeoPoint.getPosition(verbose: true).then((p) {
       setState(() {
         geoPoint = p;
       });

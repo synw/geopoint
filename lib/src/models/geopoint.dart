@@ -30,7 +30,7 @@ class GeoPoint {
       this.locality = placemark.locality;
       this.locality = placemark.subLocality;
       this.postalCode = placemark.postalCode;
-      this.subregion = placemark.subAdministratieArea;
+      //this.subregion = placemark.subAdministratieArea;
       this.region = placemark.administrativeArea;
       this.country = placemark.country;
     }
@@ -62,10 +62,8 @@ class GeoPoint {
   get address => _getAddress();
   get point => LatLng(latitude, longitude);
 
+  /// build this geopoint from json data
   GeoPoint.fromJson(Map<String, dynamic> json)
-
-      /// build this geopoint from json data
-      /// [json] the json data to build from
       : id = int.tryParse("${json["id"]}"),
         name = json["name"],
         slug = slugify.slugify(json["name"]),
@@ -86,8 +84,11 @@ class GeoPoint {
         region = json["region"],
         country = json["country"];
 
+  /// [json] the json data to build from
+
+  /// get a json map from this geopoint
   Map<String, String> toStringsMap({bool withId = true}) {
-    /// get a json map from this geopoint
+    /// [withId] include the id of the geopoint or not
     Map<String, String> json = {
       "name": "$name",
       "timestamp": "$timestamp",
@@ -111,9 +112,9 @@ class GeoPoint {
     return json;
   }
 
+  /// convert this geopoint to string
   @override
   String toString() {
-    /// convert this geopoint to string
     String str = "Geopoint: $name\n";
     str += "Lat: $latitude\n";
     str += "Lon: $longitude\n";
@@ -126,8 +127,38 @@ class GeoPoint {
     return str;
   }
 
+  /// A method to get a [GeoPoint] from
+  /// the device's current position
+  static Future<GeoPoint> getPosition(
+      {String name,
+      bool withAddress: false,
+      locationAccuracy: LocationAccuracy.best,
+      verbose: false}) async {
+    /// get a geopoint from Geoplocator
+    /// [name] the geopoint identifier
+    /// [withAddress] add the address information
+    /// [locationAccuracy] the desired accuracy for the geopoint
+    /// [verbose] print info
+    name = name ?? "Current position";
+    GeoPoint geoPoint;
+    Position position = await Geolocator()
+        .getCurrentPosition(desiredAccuracy: locationAccuracy);
+    if (withAddress == true) {
+      List<Placemark> placemarks = await Geolocator()
+          .placemarkFromCoordinates(position.latitude, position.longitude);
+      Placemark placemark = placemarks[0];
+      geoPoint = GeoPoint(name: name, position: position, placemark: placemark);
+      if (verbose) {
+        print(geoPoint.toString());
+      }
+    } else {
+      geoPoint = GeoPoint(name: name, position: position);
+    }
+    return geoPoint;
+  }
+
+  /// get a formated address from this geopoint
   String _getAddress() {
-    /// get a formated address from this geopoint
     String address = "$number $street $locality ";
     address += "$postalCode $subregion $region $country";
     return address;
