@@ -6,6 +6,7 @@ import 'package:slugify2/slugify.dart';
 
 Slugify slugify = new Slugify();
 
+/// A class to hold geopoint data structure
 class GeoPoint {
   GeoPoint(
       {@required this.name,
@@ -59,7 +60,10 @@ class GeoPoint {
   String country;
   List<File> images;
 
+  /// the formated address of the [GeoPoint]
   get address => _getAddress();
+
+  /// the [LatLng] of the [GeoPoint]
   get point => LatLng(latitude, longitude);
 
   /// build this geopoint from json data
@@ -92,6 +96,9 @@ class GeoPoint {
         latitude = point.latitude,
         longitude = point.longitude;
 
+  /// [name] the name of the [GeoPoint]
+  /// [point] the [LatLng] of the [GeoPoint]
+
   /// get a json map from this geopoint
   Map<String, String> toStringsMap({bool withId = true}) {
     /// [withId] include the id of the geopoint or not
@@ -116,21 +123,6 @@ class GeoPoint {
     };
     if (withId) json["id"] = "$id";
     return json;
-  }
-
-  /// convert this geopoint to string
-  @override
-  String toString() {
-    String str = "Geopoint: $name\n";
-    str += "Lat: $latitude\n";
-    str += "Lon: $longitude\n";
-    str += "Altitude: $altitude\n";
-    str += "Speed: $speed\n";
-    str += "Heading: $heading\n";
-    if (placemark != null) {
-      str += _getAddress();
-    }
-    return str;
   }
 
   /// A method to get a [GeoPoint] from
@@ -168,5 +160,20 @@ class GeoPoint {
     String address = "$number $street $locality ";
     address += "$postalCode $subregion $region $country";
     return address;
+  }
+
+  /// convert this geopoint to string
+  @override
+  String toString() {
+    String str = "Geopoint: $name\n";
+    str += "Lat: $latitude\n";
+    str += "Lon: $longitude\n";
+    str += "Altitude: $altitude\n";
+    str += "Speed: $speed\n";
+    str += "Heading: $heading\n";
+    if (placemark != null) {
+      str += _getAddress();
+    }
+    return str;
   }
 }
