@@ -1,16 +1,57 @@
-# example
+# Example
 
-A new Flutter project.
 
-## Getting Started
+   ```dart
+import 'package:flutter/material.dart';
+import 'package:geopoint/geopoint.dart';
 
-This project is a starting point for a Flutter application.
+class _MyHomePageState extends State<MyHomePage> {
+  GeoPoint geoPoint;
 
-A few resources to get you started if this is your first Flutter project:
+  setGeoPoint() {
+    GeoPoint.getPosition(verbose: true).then((p) {
+      setState(() {
+        geoPoint = p;
+      });
+    });
+  }
 
-- [Lab: Write your first Flutter app](https://flutter.io/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.io/docs/cookbook)
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Padding(
+          padding: EdgeInsets.all(25.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              RaisedButton(
+                child: Text("Get current geopoint"),
+                onPressed: () => setGeoPoint(),
+              ),
+              Text("$geoPoint"),
+            ],
+          )),
+    );
+  }
+}
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.io/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Geopoint example',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: MyHomePage(),
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+   ```
