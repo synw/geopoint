@@ -49,6 +49,9 @@ Constructors:
       // uses all fields except [position] and [placemark]
    };
    GeoPoint geoPoint = GeoPoint.fromJson(json);
+
+   // from LatLng
+   GeoPoint.fromLatLng(name: "Position", point: LatLng(51.0,0.0));
    ```
 
 Methods and getters:
