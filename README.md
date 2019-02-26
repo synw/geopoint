@@ -1,5 +1,7 @@
 # Geopoint
 
+[![pub package](https://img.shields.io/pub/v/geopoint.svg)](https://pub.dartlang.org/packages/geopoint)
+
 Data structures and methods for the [Geolocator](https://github.com/BaseflowIT/flutter-geolocator) Flutter plugin
 
 ## Models
