@@ -86,6 +86,12 @@ class GeoPoint {
 
   /// [json] the json data to build from
 
+  /// get a GeoPoint from LatLng coordinates
+  GeoPoint.fromLatLng({@required String name, @required LatLng coordinates})
+      : name = name,
+        latitude = coordinates.latitude,
+        longitude = coordinates.longitude;
+
   /// get a json map from this geopoint
   Map<String, String> toStringsMap({bool withId = true}) {
     /// [withId] include the id of the geopoint or not
