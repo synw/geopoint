@@ -1,5 +1,7 @@
 name: geopoint
-description: A new Flutter project.
+author: synw <synwe@yahoo.com>
+description: Data structures and methods for Geolocator. Provides a GeoPoint and GeoSerie models and various constructors and methods.
+homepage: https://github.com/synw/geopoint
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -7,7 +9,7 @@ description: A new Flutter project.
 # Both the version and the builder number may be overridden in flutter
 # build by specifying --build-name and --build-number, respectively.
 # Read more about versioning at semver.org.
-version: 1.0.0+1
+version: "0.1.0"
 
 environment:
   sdk: ">=2.1.0-dev.9.4.flutter-f9ebf21297 <3.0.0"
@@ -18,8 +20,6 @@ dependencies:
   geolocator: ^2.1.1
   latlong: ^0.6.1
   slugify2: ^0.2.0
-  permission_handler: "2.1.2"
-  google_api_availability: "1.0.4"
   
   
 
