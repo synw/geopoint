@@ -4,7 +4,7 @@ import 'package:geopoint/geopoint.dart';
 class _MyHomePageState extends State<MyHomePage> {
   GeoPoint geoPoint;
 
-  setGeoPoint() {
+  void setGeoPoint() {
     GeoPoint.getPosition(verbose: true).then((p) {
       setState(() {
         geoPoint = p;
@@ -16,12 +16,12 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-          padding: EdgeInsets.all(25.0),
+          padding: const EdgeInsets.all(25.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               RaisedButton(
-                child: Text("Get current geopoint"),
+                child: const Text("Get current geopoint"),
                 onPressed: () => setGeoPoint(),
               ),
               Text("$geoPoint"),

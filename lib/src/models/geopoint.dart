@@ -4,10 +4,11 @@ import 'package:geolocator/geolocator.dart';
 import 'package:latlong/latlong.dart';
 import 'package:slugify2/slugify.dart';
 
-Slugify slugify = new Slugify();
+var _slugify = Slugify();
 
 /// A class to hold geopoint data structure
 class GeoPoint {
+  /// Default constructor: needs a [name] and a [position]
   GeoPoint(
       {@required this.name,
       this.id,
@@ -16,7 +17,7 @@ class GeoPoint {
       this.images})
       : assert(name != null),
         assert(position != null) {
-    this.slug = slugify.slugify(name);
+    this.slug = _slugify.slugify(name);
     this.timestamp = position.timestamp.millisecondsSinceEpoch;
     this.latitude = position.latitude;
     this.longitude = position.longitude;
@@ -37,40 +38,84 @@ class GeoPoint {
     }
   }
 
+  /// The name of the geopoint
   final String name;
+
+  /// A string without spaces nor special characters. Can be used
+  /// to define file paths
   String slug;
+
+  /// The id of the geopoint
   int id;
+
+  /// The timestamp
   int timestamp;
+
+  /// The [Position] from Geolocator
   Position position;
+
+  /// The [Placemark] object from Geolocator
   Placemark placemark;
+
+  /// A latitude coordinate
   double latitude;
+
+  /// A longitude coordinate
   double longitude;
+
+  /// The altitude of the geopoint
   double altitude;
+
+  /// The speed
   double speed;
+
+  /// The accuracy of the mesurement
   double accuracy;
+
+  /// The accuracy of the speed
   double speedAccuracy;
+
+  /// The heading
   double heading;
+
+  /// Number in the street
   String number;
+
+  /// Street name
   String street;
+
+  /// Locality name
   String locality;
+
+  /// Sublocality name
   String sublocality;
+
+  /// Local postal code
   String postalCode;
+
+  /// Subregion
   String subregion;
+
+  /// Region
   String region;
+
+  /// Country
   String country;
+
+  /// A list of images can be attached to the geopoint
   List<File> images;
 
   /// the formated address of the [GeoPoint]
-  get address => _getAddress();
+  String get address => _getAddress();
 
   /// the [LatLng] of the [GeoPoint]
-  get point => LatLng(latitude, longitude);
+  LatLng get point => LatLng(latitude, longitude);
 
-  /// build this geopoint from json data
+  /// Build this geopoint from json data
   GeoPoint.fromJson(Map<String, dynamic> json)
       : id = int.tryParse("${json["id"]}"),
-        name = json["name"],
-        slug = slugify.slugify(json["name"]),
+        name = "${json["name"]}",
+        slug = _slugify.slugify("${json["name"]}"),
         timestamp = int.tryParse("${json["timestamp"]}"),
         latitude = double.tryParse("${json["latitude"]}"),
         longitude = double.tryParse("${json["longitude"]}"),
@@ -79,18 +124,16 @@ class GeoPoint {
         accuracy = double.tryParse("${json["accuracy"]}"),
         speedAccuracy = double.tryParse("${json["speed_accuracy"]}"),
         heading = double.tryParse("${json["heading"]}"),
-        number = json["number"],
-        street = json["street"],
-        locality = json["locality"],
-        sublocality = json["sublocality"],
-        postalCode = json["postal_code"],
-        subregion = json["subregion"],
-        region = json["region"],
-        country = json["country"];
+        number = "${json["number"]}",
+        street = "${json["street"]}",
+        locality = "${json["locality"]}",
+        sublocality = "${json["sublocality"]}",
+        postalCode = "${json["postal_code"]}",
+        subregion = "${json["subregion"]}",
+        region = "${json["region"]}",
+        country = "${json["country"]}";
 
-  /// [json] the json data to build from
-
-  /// get a GeoPoint from LatLng coordinates
+  /// Get a GeoPoint from LatLng coordinates
   GeoPoint.fromLatLng({@required String name, @required LatLng point})
       : name = name,
         latitude = point.latitude,
@@ -99,7 +142,7 @@ class GeoPoint {
   /// [name] the name of the [GeoPoint]
   /// [point] the [LatLng] of the [GeoPoint]
 
-  /// get a json map from this geopoint
+  /// Get a json map from this geopoint
   Map<String, String> toStringsMap({bool withId = true}) {
     /// [withId] include the id of the geopoint or not
     Map<String, String> json = {
@@ -129,9 +172,9 @@ class GeoPoint {
   /// the device's current position
   static Future<GeoPoint> getPosition(
       {String name,
-      bool withAddress: false,
-      locationAccuracy: LocationAccuracy.best,
-      verbose: false}) async {
+      bool withAddress = false,
+      LocationAccuracy locationAccuracy = LocationAccuracy.best,
+      bool verbose = false}) async {
     /// get a geopoint from Geoplocator
     /// [name] the geopoint identifier
     /// [withAddress] add the address information

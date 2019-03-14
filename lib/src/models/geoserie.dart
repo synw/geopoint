@@ -1,15 +1,31 @@
 import 'package:flutter/foundation.dart';
 
-enum GeoSerieType { group, line, polygon }
+/// The type of the geoserie: group of points, line or polygon
+enum GeoSerieType {
+  /// A group of geopoints
+  group,
+
+  /// A group of geopoints forming a line
+  line,
+
+  /// A group of geopoints forming a polygon
+  polygon
+}
 
 /// A class to hold information about a serie of [GeoPoint]
 class GeoSerie {
+  /// Default constructor: requires a [name] and a [type]
   GeoSerie({@required this.name, @required this.type, this.id})
       : assert(name != null),
         assert(type != null);
 
+  /// Name if the geoserie
   final String name;
+
+  /// Id of the geoserie
   final int id;
+
+  /// Type of the geoserie
   GeoSerieType type;
 
   /// The type of the serie as a string
@@ -17,12 +33,10 @@ class GeoSerie {
 
   /// Make a [GeoSerie] from json data
   GeoSerie.fromJson(Map<String, dynamic> json)
-      : name = json["name"],
-        id = json["id"] {
-    type = _typeFromString(json["type"]);
+      : name = "${json["name"]}",
+        id = int.parse("${json["id"]}") {
+    type = _typeFromString("${json["type"]}");
   }
-
-  /// [json] the json data to build from
 
   /// Make a [GeoSerie] from name and serie type
   GeoSerie.fromNameAndType(
@@ -36,7 +50,7 @@ class GeoSerie {
   /// [id] the id of the serie
 
   /// get a json map from this [GeoSerie]
-  Map<String, String> toMap({bool withId: true}) {
+  Map<String, String> toMap({bool withId = true}) {
     /// [withId] include the id in the result
     Map<String, String> json = {
       "name": "$name",
