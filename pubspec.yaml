@@ -1,6 +1,6 @@
 name: geopoint
 author: synw <synwe@yahoo.com>
-description: Data structures and methods for Geolocator. Provides a GeoPoint and GeoSerie models and various constructors and methods.
+description: Data structures and methods for Geolocator. Provides a GeoPoint and GeoSerie models with various constructors and methods.
 homepage: https://github.com/synw/geopoint
 
 # The following defines the version and build number for your application.
@@ -9,7 +9,7 @@ homepage: https://github.com/synw/geopoint
 # Both the version and the builder number may be overridden in flutter
 # build by specifying --build-name and --build-number, respectively.
 # Read more about versioning at semver.org.
-version: "0.1.0"
+version: "0.1.1"
 
 environment:
   sdk: ">=2.1.0-dev.9.4.flutter-f9ebf21297 <3.0.0"
