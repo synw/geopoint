@@ -134,17 +134,18 @@ class GeoPoint {
         country = "${json["country"]}";
 
   /// Get a GeoPoint from LatLng coordinates
+  ///
+  /// [name] is the name of this [GeoPoint] and
+  /// [point] is a [LatLng]
   GeoPoint.fromLatLng({@required String name, @required LatLng point})
       : name = name,
         latitude = point.latitude,
         longitude = point.longitude;
 
-  /// [name] the name of the [GeoPoint]
-  /// [point] the [LatLng] of the [GeoPoint]
-
   /// Get a json map from this geopoint
+  ///
+  /// [withId] include the id of the geopoint or not
   Map<String, String> toStringsMap({bool withId = true}) {
-    /// [withId] include the id of the geopoint or not
     Map<String, String> json = {
       "name": "$name",
       "timestamp": "$timestamp",
@@ -168,18 +169,15 @@ class GeoPoint {
     return json;
   }
 
-  /// A method to get a [GeoPoint] from
-  /// the device's current position
+  /// A method to get a [GeoPoint] from the device's current position
+  ///
+  /// [name] is the geopoint identifier. Use [withAddress] to add the
+  /// address information
   static Future<GeoPoint> getPosition(
       {String name,
       bool withAddress = false,
       LocationAccuracy locationAccuracy = LocationAccuracy.best,
       bool verbose = false}) async {
-    /// get a geopoint from Geoplocator
-    /// [name] the geopoint identifier
-    /// [withAddress] add the address information
-    /// [locationAccuracy] the desired accuracy for the geopoint
-    /// [verbose] print info
     name = name ?? "Current position";
     GeoPoint geoPoint;
     Position position = await Geolocator()
@@ -198,14 +196,14 @@ class GeoPoint {
     return geoPoint;
   }
 
-  /// get a formated address from this geopoint
+  /// Get a formated address from this geopoint
   String _getAddress() {
     String address = "$number $street $locality ";
     address += "$postalCode $subregion $region $country";
     return address;
   }
 
-  /// convert this geopoint to string
+  /// Convert this geopoint to string
   @override
   String toString() {
     String str = "Geopoint: $name\n";
