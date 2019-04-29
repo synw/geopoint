@@ -11,9 +11,6 @@ enum GeoSerieType {
 
   /// A group of geopoints forming a polygon
   polygon,
-
-  /// Boundaries of a geometry
-  boundaries,
 }
 
 /// A class to hold information about a serie of [GeoPoint]
@@ -34,6 +31,9 @@ class GeoSerie {
 
   /// The surface of a geometry
   num surface;
+
+  /// Boundaries of a geometry
+  GeoSerie boundaries;
 
   /// The centroid of a geometry
   GeoPoint centroid;
@@ -100,9 +100,6 @@ class GeoSerie {
         break;
       case GeoSerieType.polygon:
         res = "polygon";
-        break;
-      case GeoSerieType.boundaries:
-        res = "boundaries";
     }
     return res;
   }
