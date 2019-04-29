@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'geopoint.dart';
 
 /// The type of the geoserie: group of points, line or polygon
 enum GeoSerieType {
@@ -30,6 +31,12 @@ class GeoSerie {
 
   /// Type of the geoserie
   GeoSerieType type;
+
+  /// The surface of a geometry
+  num surface;
+
+  /// The centroid of a geometry
+  GeoPoint centroid;
 
   /// The type of the serie as a string
   String get typeStr => _typeToString();
