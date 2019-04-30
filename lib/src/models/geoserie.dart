@@ -33,7 +33,7 @@ class GeoSerie {
   num surface;
 
   /// Boundaries of a geometry
-  GeoSerie boundaries;
+  GeoSerie boundary;
 
   /// The centroid of a geometry
   GeoPoint centroid;
@@ -44,7 +44,8 @@ class GeoSerie {
   /// Make a [GeoSerie] from json data
   GeoSerie.fromJson(Map<String, dynamic> json)
       : name = "${json["name"]}",
-        id = int.parse("${json["id"]}") {
+        id = int.parse("${json["id"]}"),
+        surface = double.tryParse("${json["surface"]}") {
     type = _typeFromString("${json["type"]}");
   }
 
@@ -65,6 +66,7 @@ class GeoSerie {
     Map<String, String> json = {
       "name": "$name",
       "type": "${_typeToString(type)}",
+      "surface": "$surface"
     };
     if (withId) {
       json["id"] = "${this.id}";
