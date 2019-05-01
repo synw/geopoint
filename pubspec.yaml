@@ -1,13 +1,14 @@
 name: geopoint
 author: synw <synwe@yahoo.com>
-description: Data structures and methods for Geolocator. Provides a GeoPoint and GeoSerie models with various constructors and methods.
+description: Geospatial data structures. Provides GeoPoint and GeoSerie models.
 homepage: https://github.com/synw/geopoint
-version: "0.2.0"
+version: "0.2.1"
 
 environment:
   sdk: ">=2.0.0 <3.0.0"
   
 dependencies:
+  meta: ^1.1.7
   latlong: ^0.6.1
   slugify2: ^0.2.0
 
