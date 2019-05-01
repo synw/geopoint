@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.1
+
+- Add missing meta dependency
+
 ## 0.2.0
 
 **Breaking change**: remove the Geolocator and Flutter dependencies,
