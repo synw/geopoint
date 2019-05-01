@@ -17,7 +17,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  geolocator: ^3.0.1
   latlong: ^0.6.1
   slugify2: ^0.2.0
   

@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:flutter/foundation.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:latlong/latlong.dart';
 import 'package:slugify2/slugify.dart';
 
@@ -8,38 +7,38 @@ var _slugify = Slugify();
 
 /// A class to hold geopoint data structure
 class GeoPoint {
-  /// Default constructor: needs a [name] and a [position]
+  /// Default constructor: needs [latitude] and [longitude]
   GeoPoint(
-      {@required this.name,
+      {this.name,
+      @required this.latitude,
+      @required this.longitude,
       this.id,
-      @required this.position,
-      this.placemark,
+      this.slug,
+      this.timestamp,
+      this.altitude,
+      this.speed,
+      this.accuracy,
+      this.heading,
+      this.country,
+      this.locality,
+      this.sublocality,
+      this.number,
+      this.postalCode,
+      this.region,
+      this.speedAccuracy,
+      this.street,
+      this.subregion,
       this.images})
-      : assert(name != null),
-        assert(position != null) {
-    this.slug = _slugify.slugify(name);
-    this.timestamp = position.timestamp.millisecondsSinceEpoch;
-    this.latitude = position.latitude;
-    this.longitude = position.longitude;
-    this.altitude = position.altitude;
-    this.speed = position.speed;
-    this.accuracy = position.accuracy;
-    this.speedAccuracy = position.speedAccuracy;
-    this.heading = position.heading;
-    if (placemark != null) {
-      this.number = placemark.subThoroughfare;
-      this.street = placemark.thoroughfare;
-      this.locality = placemark.locality;
-      this.locality = placemark.subLocality;
-      this.postalCode = placemark.postalCode;
-      //this.subregion = placemark.subAdministratieArea;
-      this.region = placemark.administrativeArea;
-      this.country = placemark.country;
-    }
-  }
+      : assert(name != null) {}
 
   /// The name of the geopoint
-  final String name;
+  String name;
+
+  /// A latitude coordinate
+  final double latitude;
+
+  /// A longitude coordinate
+  final double longitude;
 
   /// A string without spaces nor special characters. Can be used
   /// to define file paths
@@ -50,18 +49,6 @@ class GeoPoint {
 
   /// The timestamp
   int timestamp;
-
-  /// The [Position] from Geolocator
-  Position position;
-
-  /// The [Placemark] object from Geolocator
-  Placemark placemark;
-
-  /// A latitude coordinate
-  double latitude;
-
-  /// A longitude coordinate
-  double longitude;
 
   /// The altitude of the geopoint
   double altitude;
@@ -115,7 +102,6 @@ class GeoPoint {
   GeoPoint.fromJson(Map<String, dynamic> json)
       : id = int.tryParse("${json["id"]}"),
         name = "${json["name"]}",
-        slug = _slugify.slugify("${json["name"]}"),
         timestamp = int.tryParse("${json["timestamp"]}"),
         latitude = double.tryParse("${json["latitude"]}"),
         longitude = double.tryParse("${json["longitude"]}"),
@@ -131,12 +117,15 @@ class GeoPoint {
         postalCode = "${json["postal_code"]}",
         subregion = "${json["subregion"]}",
         region = "${json["region"]}",
-        country = "${json["country"]}";
+        country = "${json["country"]}" {
+    if (slug == null && name != null)
+      slug = _slugify.slugify("${json["name"]}");
+  }
 
-  /// Get a GeoPoint from LatLng coordinates
+  /// Get a GeoPoint from [LatLng] coordinates
   ///
   /// [name] is the name of this [GeoPoint] and
-  /// [point] is a [LatLng]
+  /// [point] is a [LatLng] coordinate
   GeoPoint.fromLatLng({@required String name, @required LatLng point})
       : name = name,
         latitude = point.latitude,
@@ -145,7 +134,7 @@ class GeoPoint {
   /// Get a json map from this geopoint
   ///
   /// [withId] include the id of the geopoint or not
-  Map<String, String> toStringsMap({bool withId = true}) {
+  Map<String, String> toMap({bool withId = true}) {
     Map<String, String> json = {
       "name": "$name",
       "timestamp": "$timestamp",
@@ -169,33 +158,6 @@ class GeoPoint {
     return json;
   }
 
-  /// A method to get a [GeoPoint] from the device's current position
-  ///
-  /// [name] is the geopoint identifier. Use [withAddress] to add the
-  /// address information
-  static Future<GeoPoint> getPosition(
-      {String name,
-      bool withAddress = false,
-      LocationAccuracy locationAccuracy = LocationAccuracy.best,
-      bool verbose = false}) async {
-    name = name ?? "Current position";
-    GeoPoint geoPoint;
-    Position position = await Geolocator()
-        .getCurrentPosition(desiredAccuracy: locationAccuracy);
-    if (withAddress == true) {
-      List<Placemark> placemarks = await Geolocator()
-          .placemarkFromCoordinates(position.latitude, position.longitude);
-      Placemark placemark = placemarks[0];
-      geoPoint = GeoPoint(name: name, position: position, placemark: placemark);
-      if (verbose) {
-        print(geoPoint.toString());
-      }
-    } else {
-      geoPoint = GeoPoint(name: name, position: position);
-    }
-    return geoPoint;
-  }
-
   /// Get a formated address from this geopoint
   String _getAddress() {
     String address = "$number $street $locality ";
@@ -212,9 +174,6 @@ class GeoPoint {
     str += "Altitude: $altitude\n";
     str += "Speed: $speed\n";
     str += "Heading: $heading\n";
-    if (placemark != null) {
-      str += _getAddress();
-    }
     return str;
   }
 }
