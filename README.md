@@ -2,20 +2,20 @@
 
 [![pub package](https://img.shields.io/pub/v/geopoint.svg)](https://pub.dartlang.org/packages/geopoint)
 
-Data structures and methods for the [Geolocator](https://github.com/BaseflowIT/flutter-geolocator) Flutter plugin
+Geospatial data structures for Dart
 
 ## Models
 
-### Geopoint
+### GeoPoint
 
 Datastructure:
 
    ```dart
-   final String name; // required
+   String name;
+   final double latitude; // required
+   final double longitude; // required
    String slug;
    int timestamp;
-   Position position; // from Geolocator
-   Placemark placemark; // from Geolocator
    double latitude;
    double longitude;
    double altitude;
@@ -34,37 +34,26 @@ Datastructure:
    List<File> images;
    ```
 
-Constructors:
+Extra constructors:
 
    ```dart
-   // from a position
-   var position = await Geolocator().getCurrentPosition(
-      desiredAccuracy: locationAccuracy);
-   String name = "My location";
-   GeoPoint geoPoint = GeoPoint(name: name, position: position);
-
-   // from json
-   Map<String, dynamic> json = {
-      "name": "Mylocation",
-      "latitude": 0.0,
-      // ...
-      // uses all fields except [position] and [placemark]
-   };
-   GeoPoint geoPoint = GeoPoint.fromJson(json);
-
-   // from LatLng
+   /// from a [LatLng]
    GeoPoint.fromLatLng(name: "Position", point: LatLng(51.0,0.0));
+
+   /// from json
+   GeoPoint.fromJson(jsonData);
    ```
 
 Methods and getters:
 
    ```dart
-   // get the current location as a GeoPoint
-   GeoPoint geoPoint = await GeoPoint.getPosition(name: "Current position");;
-   // get the formated address
+   /// get the formated address
    String address = geoPoint.address;
 
-   // convert to json
+   /// get the [LatLng] point
+   LatLng point = geoPoint.point;
+
+   /// convert to json
    Map<String, String> json = geoPoint.toMap();
    ```
 
@@ -75,23 +64,22 @@ Datastructure:
    ```dart
    final String name; // required
    final int id;
-   final GeoSerieType type;  // one of GeoSerieType.group
-                             // GeoSerieType.line or
-                             // GeoSerieType.polygon
+   GeoSerieType type;  /// one of [GeoSerieType.group]
+                       /// [GeoSerieType.line] or
+                       /// [GeoSerieType.polygon]
+   List<GeoPoint> geoPoints;
+   num surface;
+   GeoSerie boundary;
+   GeoPoint centroid;
    ```
 
-Constructors:
+Extra constructors:
 
    ```dart
-   // ftom json
-   Map<String, dynamic> json = {
-       "name": "A polygon",
-       "id":1,
-       "type": "polygon",
-   }
-   GeoSerie geoSerie = GeoSerie.fromJson(json);
+   /// from json
+   GeoSerie geoSerie = GeoSerie.fromJson(jsonData);
 
-   // from strings
+   /// from strings
    GeoSerie geoSerie = GeoSerie.fromNameAndType(
        name: "A polygon",
        type: GeoSerieType.polygon,
@@ -103,7 +91,7 @@ Methods and getters:
 
    ```dart
    // convert to json
-   Map<String, String> json = geoSerie.toMap();
+   Map<String, String> jsonData = geoSerie.toMap();
 
    // get the type as a string
    String type = geoSerie.typeStr;
