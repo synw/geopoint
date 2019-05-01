@@ -29,7 +29,7 @@ class GeoPoint {
       this.street,
       this.subregion,
       this.images})
-      : assert(name != null) {}
+      : assert(name != null);
 
   /// The name of the geopoint
   String name;
