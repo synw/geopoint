@@ -1,4 +1,4 @@
-import 'package:flutter/foundation.dart';
+import 'package:meta/meta.dart';
 import 'geopoint.dart';
 
 /// The type of the geoserie: group of points, line or polygon
@@ -16,12 +16,14 @@ enum GeoSerieType {
 /// A class to hold information about a serie of [GeoPoint]
 class GeoSerie {
   /// Default constructor: requires a [name] and a [type]
-  GeoSerie({@required this.name, @required this.type, this.id, 
-  this.geoPoints,
-  this.surface,
-  this.boundary,
-  this.centroid
-  })
+  GeoSerie(
+      {@required this.name,
+      @required this.type,
+      this.id,
+      this.geoPoints,
+      this.surface,
+      this.boundary,
+      this.centroid})
       : assert(name != null),
         assert(type != null);
 
