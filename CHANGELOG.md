@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.2
+
+- Downgrade to `meta` 1.1.6 to be compatible with `flutter_test`
+
 ## 0.2.1
 
 - Add missing meta dependency
