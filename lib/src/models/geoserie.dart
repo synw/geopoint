@@ -74,7 +74,7 @@ class GeoSerie {
   /// get a json map from this [GeoSerie]
   Map<String, dynamic> toMap({bool withId = true}) {
     /// [withId] include the id in the result
-    Map<String, dynamic> json = {
+    Map<String, dynamic> json = <String, dynamic>{
       "name": "$name",
       "type": "${_typeToString(type)}",
       "surface": double.tryParse("$surface")
