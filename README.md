@@ -1,6 +1,6 @@
 # Geopoint
 
-[![pub package](https://img.shields.io/pub/v/geopoint.svg)](https://pub.dartlang.org/packages/geopoint)
+[![pub package](https://img.shields.io/pub/v/geopoint.svg)](https://pub.dartlang.org/packages/geopoint) [![Build Status](https://travis-ci.org/synw/geopoint.svg?branch=master)](https://travis-ci.org/synw/geopoint) [![Coverage Status](https://coveralls.io/repos/github/synw/geopoint/badge.svg?branch=master)](https://coveralls.io/github/synw/geopoint?branch=master)
 
 Geospatial data structures for Dart
 
