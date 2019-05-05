@@ -28,6 +28,11 @@
 .pub/
 build/
 
+# test
+test/.test_coverage.dart
+coverage/
+!coverage/lcov.info
+
 # Android related
 **/android/**/gradle-wrapper.jar
 **/android/.gradle
