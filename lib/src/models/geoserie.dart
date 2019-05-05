@@ -60,10 +60,11 @@ class GeoSerie {
   }
 
   /// Make a [GeoSerie] from name and serie type
-  GeoSerie.fromNameAndType(
-      {@required this.name, String typeStr, this.type, this.id})
-      : assert(typeStr != null || type != null) {
-    if (type != null) this.type = _typeFromString(typeStr);
+  GeoSerie.fromNameAndType({@required String name, String typeStr, int id})
+      : this.name = name,
+        this.id = id,
+        assert(typeStr != null) {
+    type = _typeFromString(typeStr);
   }
 
   /// [name] the name of the [GeoSerie]
@@ -71,15 +72,15 @@ class GeoSerie {
   /// [id] the id of the serie
 
   /// get a json map from this [GeoSerie]
-  Map<String, String> toMap({bool withId = true}) {
+  Map<String, dynamic> toMap({bool withId = true}) {
     /// [withId] include the id in the result
-    Map<String, String> json = {
+    Map<String, dynamic> json = {
       "name": "$name",
       "type": "${_typeToString(type)}",
-      "surface": "$surface"
+      "surface": double.tryParse("$surface")
     };
     if (withId) {
-      json["id"] = "${this.id}";
+      json["id"] = id;
     }
     return json;
   }
