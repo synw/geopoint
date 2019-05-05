@@ -29,7 +29,10 @@ class GeoPoint {
       this.street,
       this.subregion,
       this.images})
-      : assert(name != null);
+      : assert(latitude != null),
+        assert(longitude != null) {
+    if (slug == null && name != null) slug = _slugify.slugify(name);
+  }
 
   /// The name of the geopoint
   String name;
@@ -126,10 +129,12 @@ class GeoPoint {
   ///
   /// [name] is the name of this [GeoPoint] and
   /// [point] is a [LatLng] coordinate
-  GeoPoint.fromLatLng({@required String name, @required LatLng point})
+  GeoPoint.fromLatLng({String name, @required LatLng point})
       : name = name,
         latitude = point.latitude,
-        longitude = point.longitude;
+        longitude = point.longitude {
+    if (name != null) slug = _slugify.slugify(name);
+  }
 
   /// Get a json map from this geopoint
   ///
