@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.3
+
+- Add tests
+- Minor fixes
+
 ## 0.2.2
 
 - Downgrade to `meta` 1.1.6 to be compatible with `flutter_test`
