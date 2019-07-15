@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.3.0
+
+- Update dependencies
+- Add pedantic to analysis options
+- Use `<String, dynamic>` return type for `toMap` mathods
+- Update tests
+
 ## 0.2.3
 
 - Add tests

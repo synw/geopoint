@@ -1,8 +1,8 @@
 name: geopoint
-author: synw <synwe@yahoo.com>
+author: synw <ansterj@gmail.com>
 description: Geospatial data structures. Provides GeoPoint and GeoSerie models.
 homepage: https://github.com/synw/geopoint
-version: "0.2.3"
+version: "0.3.0"
 
 environment:
   sdk: ">=2.0.0 <3.0.0"
