@@ -8,9 +8,10 @@ environment:
   sdk: ">=2.0.0 <3.0.0"
   
 dependencies:
-  meta: ^1.1.6
+  meta: ^1.1.7
   latlong: ^0.6.1
-  slugify2: ^0.2.0
+  slugify2: ^0.2.1
+  pedantic: ^1.6.0
 
 dev_dependencies:
   test: ^1.5.1
