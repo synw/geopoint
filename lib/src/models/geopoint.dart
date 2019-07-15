@@ -140,27 +140,27 @@ class GeoPoint {
   /// Get a json map from this geopoint
   ///
   /// [withId] include the id of the geopoint or not
-  Map<String, String> toMap({bool withId = true}) {
-    Map<String, String> json = {
-      "name": "$name",
-      "timestamp": "$timestamp",
-      "latitude": "$latitude",
-      "longitude": "$longitude",
-      "altitude": "$altitude",
-      "speed": "$speed",
-      "heading": "$heading",
-      "accuracy": "$accuracy",
-      "speed_accuracy": "$speedAccuracy",
-      "number": "$number",
-      "street": "$street",
-      "locality": "$locality",
-      "sublocality": "$sublocality",
-      "postal_code": "$postalCode",
-      "subregion": "$subregion",
-      "region": "$region",
-      "country": "$country",
+  Map<String, dynamic> toMap({bool withId = true}) {
+    final json = <String, dynamic>{
+      "name": name,
+      "timestamp": timestamp,
+      "latitude": latitude,
+      "longitude": longitude,
+      "altitude": altitude,
+      "speed": speed,
+      "heading": heading,
+      "accuracy": accuracy,
+      "speed_accuracy": speedAccuracy,
+      "number": number,
+      "street": street,
+      "locality": locality,
+      "sublocality": sublocality,
+      "postal_code": postalCode,
+      "subregion": subregion,
+      "region": region,
+      "country": country,
     };
-    if (withId) json["id"] = "$id";
+    if (withId) json["id"] = id;
     return json;
   }
 
