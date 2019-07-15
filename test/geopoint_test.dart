@@ -80,25 +80,25 @@ void main() {
   });
 
   test("map", () {
-    Map<String, String> m = {
+    final m = <String, dynamic>{
       "name": geoPoint.name,
-      "timestamp": "${geoPoint.timestamp}",
-      "latitude": "${geoPoint.latitude}",
-      "longitude": "${geoPoint.longitude}",
-      "altitude": "${geoPoint.altitude}",
-      "speed": "${geoPoint.speed}",
-      "heading": "${geoPoint.heading}",
-      "accuracy": "${geoPoint.accuracy}",
-      "speed_accuracy": "${geoPoint.speedAccuracy}",
-      "number": "${geoPoint.number}",
-      "street": "${geoPoint.street}",
-      "locality": "${geoPoint.locality}",
-      "sublocality": "${geoPoint.sublocality}",
-      "postal_code": "${geoPoint.postalCode}",
-      "subregion": "${geoPoint.subregion}",
-      "region": "${geoPoint.region}",
-      "country": "${geoPoint.country}",
-      "id": "${geoPoint.id}",
+      "timestamp": geoPoint.timestamp,
+      "latitude": geoPoint.latitude,
+      "longitude": geoPoint.longitude,
+      "altitude": geoPoint.altitude,
+      "speed": geoPoint.speed,
+      "heading": geoPoint.heading,
+      "accuracy": geoPoint.accuracy,
+      "speed_accuracy": geoPoint.speedAccuracy,
+      "number": geoPoint.number,
+      "street": geoPoint.street,
+      "locality": geoPoint.locality,
+      "sublocality": geoPoint.sublocality,
+      "postal_code": geoPoint.postalCode,
+      "subregion": geoPoint.subregion,
+      "region": geoPoint.region,
+      "country": geoPoint.country,
+      "id": geoPoint.id,
     };
     expect(geoPoint.toMap(), equals(m));
   });
