@@ -121,8 +121,9 @@ class GeoPoint {
         subregion = "${json["subregion"]}",
         region = "${json["region"]}",
         country = "${json["country"]}" {
-    if (slug == null && name != null)
+    if (slug == null && name != null) {
       slug = _slugify.slugify("${json["name"]}");
+    }
   }
 
   /// Get a GeoPoint from [LatLng] coordinates
