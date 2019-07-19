@@ -164,6 +164,33 @@ class GeoPoint {
     return json;
   }
 
+    /// Get a strings map from this geopoint
+  ///
+  /// [withId] include the id of the geopoint or not
+  Map<String, String> toStringsMap({bool withId = true}) {
+    final json = <String, String>{
+      "name": "$name",
+      "timestamp": "$timestamp",
+      "latitude": "$latitude",
+      "longitude": "$longitude",
+      "altitude": "$altitude",
+      "speed": "$speed",
+      "heading": "$heading",
+      "accuracy": "$accuracy",
+      "speed_accuracy": "$speedAccuracy",
+      "number": "$number",
+      "street": "$street",
+      "locality": "$locality",
+      "sublocality": "$sublocality",
+      "postal_code": "$postalCode",
+      "subregion": "$subregion",
+      "region": "$region",
+      "country": "$country",
+    };
+    if (withId) json["id"] = "$id";
+    return json;
+  }
+
   /// Get a formated address from this geopoint
   String _getAddress() {
     String address = "$number $street $locality ";
