@@ -103,6 +103,30 @@ void main() {
     expect(geoPoint.toMap(), equals(m));
   });
 
+  test("strings_map", () {
+    final m = <String, String>{
+      "name": geoPoint.name,
+      "timestamp": "${geoPoint.timestamp}",
+      "latitude": "${geoPoint.latitude}",
+      "longitude": "${geoPoint.longitude}",
+      "altitude": "${geoPoint.altitude}",
+      "speed": "${geoPoint.speed}",
+      "heading": "${geoPoint.heading}",
+      "accuracy": "${geoPoint.accuracy}",
+      "speed_accuracy": "${geoPoint.speedAccuracy}",
+      "number": "${geoPoint.number}",
+      "street": "${geoPoint.street}",
+      "locality": "${geoPoint.locality}",
+      "sublocality": "${geoPoint.sublocality}",
+      "postal_code": "${geoPoint.postalCode}",
+      "subregion": "${geoPoint.subregion}",
+      "region": "${geoPoint.region}",
+      "country": "${geoPoint.country}",
+      "id": "${geoPoint.id}",
+    };
+    expect(geoPoint.toStringsMap(), equals(m));
+  });
+
   test("null", () {
     expect(() => GeoPoint(latitude: null, longitude: 0.0),
         throwsA(predicate<dynamic>((dynamic e) => e is AssertionError)));
