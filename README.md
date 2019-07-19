@@ -54,7 +54,10 @@ Methods and getters:
    LatLng point = geoPoint.point;
 
    /// convert to json
-   Map<String, String> json = geoPoint.toMap();
+   Map<String, dynamic> json = geoPoint.toMap();
+
+   /// convert to a map of strings
+   Map<String, String> strMap = geoPoint.toStringsMap();
    ```
 
 ### GeoSerie
@@ -91,7 +94,7 @@ Methods and getters:
 
    ```dart
    // convert to json
-   Map<String, String> jsonData = geoSerie.toMap();
+   Map<String, dynamic> jsonData = geoSerie.toMap();
 
    // get the type as a string
    String type = geoSerie.typeStr;
