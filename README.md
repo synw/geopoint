@@ -100,7 +100,8 @@ Methods and getters:
    String type = geoSerie.typeStr;
    ```
 
-## Associated Flutter plugins
+## Related packages
 
-- [Geopoint location](https://github.com/synw/geopoint_location) to handle real time position updates
-- [Geopoint sql](https://github.com/synw/geopoint_sql) to handle database operations
+- [Geojson](https://github.com/synw/geojson) : to work with geojson data
+- [Geopoint location](https://github.com/synw/geopoint_location) a Flutter plugin to handle real time position updates
+- [Geopoint sql](https://github.com/synw/geopoint_sql) a Flutter plugin to handle database operations
