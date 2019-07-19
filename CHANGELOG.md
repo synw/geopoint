@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.4.0
+
+Add the `toStringsMap` method to `GeoPoint`
+
 ## 0.3.0
 
 - Update dependencies
