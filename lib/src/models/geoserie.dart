@@ -1,3 +1,4 @@
+import 'package:latlong/latlong.dart';
 import 'package:meta/meta.dart';
 import 'geopoint.dart';
 
@@ -71,7 +72,7 @@ class GeoSerie {
   /// [typeStr] the type of the serie: group, line or polygon
   /// [id] the id of the serie
 
-  /// get a json map from this [GeoSerie]
+  /// Get a json map from this [GeoSerie]
   Map<String, dynamic> toMap({bool withId = true}) {
     /// [withId] include the id in the result
     final json = <String, dynamic>{
@@ -83,6 +84,15 @@ class GeoSerie {
       json["id"] = id;
     }
     return json;
+  }
+
+  /// Get a list of [LatLng] from this [GeoSerie]
+  List<LatLng> toLatLng() {
+    final points = <LatLng>[];
+    for (final geoPoint in geoPoints) {
+      points.add(geoPoint.point);
+    }
+    return points;
   }
 
   GeoSerieType _typeFromString(String typeStr) {
