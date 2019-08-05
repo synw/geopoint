@@ -87,10 +87,18 @@ class GeoSerie {
   }
 
   /// Get a list of [LatLng] from this [GeoSerie]
-  List<LatLng> toLatLng() {
+  List<LatLng> toLatLng({bool ignoreErrors = false}) {
     final points = <LatLng>[];
     for (final geoPoint in geoPoints) {
-      points.add(geoPoint.point);
+      try {
+        points.add(geoPoint.point);
+      } catch (e) {
+        if (ignoreErrors) {
+          print("Can not add point from $geoPoint: $e");
+        } else {
+          rethrow;
+        }
+      }
     }
     return points;
   }
