@@ -164,7 +164,7 @@ class GeoPoint {
     return json;
   }
 
-    /// Get a strings map from this geopoint
+  /// Get a strings map from this geopoint
   ///
   /// [withId] include the id of the geopoint or not
   Map<String, String> toStringsMap({bool withId = true}) {
