@@ -92,9 +92,9 @@ class GeoSerie {
     for (final geoPoint in geoPoints) {
       try {
         points.add(geoPoint.point);
-      } catch (e) {
+      } catch (_) {
         if (ignoreErrors) {
-          print("Can not add point from $geoPoint: $e");
+          print("Can not add point from $geoPoint");
         } else {
           rethrow;
         }
