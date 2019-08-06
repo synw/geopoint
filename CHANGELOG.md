@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.4.1
+
+Add the `toLatLng` method to `GeoSerie`
+
 ## 0.4.0
 
 Add the `toStringsMap` method to `GeoPoint`
