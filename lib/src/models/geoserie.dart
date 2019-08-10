@@ -93,14 +93,56 @@ class GeoSerie {
       try {
         points.add(geoPoint.point);
       } catch (_) {
-        if (ignoreErrors) {
-          print("Can not add point from $geoPoint");
-        } else {
+        if (!ignoreErrors) {
           rethrow;
         }
       }
     }
     return points;
+  }
+
+  /// Convert to a geojson coordinates string
+  String toGeoJsonCoordinates() {
+    var coords = "[";
+    for (final geoPoint in geoPoints) {
+      coords = coords + geoPoint.toGeoJsonCoordinates();
+    }
+    coords = coords + "]";
+    return coords;
+  }
+
+  /// Convert to a geojson feature string
+  String toGeoJsonFeature() => _toGeoJsonFeature();
+
+  String _toGeoJsonFeature() {
+    String featType;
+    switch (type) {
+      case GeoSerieType.group:
+        featType = "MultiPoint";
+        break;
+      case GeoSerieType.line:
+        featType = "Line";
+        break;
+      case GeoSerieType.polygon:
+        featType = "Polygon";
+    }
+    return _buildGeoJsonFeature(featType);
+  }
+
+  String _buildGeoJsonFeature(String type) {
+    String extra1 = "";
+    String extra2 = "";
+    if (type == "Polygon") {
+      extra1 = "[";
+      extra2 = "]";
+    }
+    return '[{"type":"Feature","properties":{"name":"$name"}, ' +
+        '"geometry":{"type":"$type",' +
+        '"coordinates":' +
+        extra1 +
+        toGeoJsonCoordinates() +
+        extra2 +
+        '}}]';
   }
 
   GeoSerieType _typeFromString(String typeStr) {

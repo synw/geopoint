@@ -191,6 +191,35 @@ class GeoPoint {
     return json;
   }
 
+  /// Convert this [GeoPoint] to a [LatLng] object
+  LatLng toLatLng({bool ignoreErrors = false}) {
+    LatLng latLng;
+    try {
+      latLng = LatLng(latitude, longitude);
+    } catch (e) {
+      if (!ignoreErrors) {
+        rethrow;
+      }
+    }
+    return latLng;
+  }
+
+  /// Convert to a geojson feature string
+  String toGeoJsonFeature() => _toGeoJsonFeature("Point");
+
+  String _toGeoJsonFeature(String type) {
+    return '[{"type":"Feature","properties":{"name":"$name"}, ' +
+        '"geometry":{"type":"$type",' +
+        '"coordinates":' +
+        toGeoJsonCoordinates() +
+        '}}]';
+  }
+
+  /// Convert to a geojson coordinates string
+  String toGeoJsonCoordinates() {
+    return '["$latitude","$longitude"]';
+  }
+
   /// Get a formated address from this geopoint
   String _getAddress() {
     String address = "$number $street $locality ";
