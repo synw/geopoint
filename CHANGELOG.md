@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.5.0
+
+- Add the `toLatLng` method to `GeoPoint`
+- Add geojson serializers
+
 ## 0.4.1
 
 Add the `toLatLng` method to `GeoSerie`
