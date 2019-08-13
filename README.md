@@ -96,8 +96,30 @@ Methods and getters:
    // convert to json
    Map<String, dynamic> jsonData = geoSerie.toMap();
 
+   /// convert to a list of [LatLng]
+   List<LatLng> points = geoSerie.toLatLng(ignoreErrors = true);
+   /// The invalid points will be skipped if ignoreErrors is true
+
    // get the type as a string
    String type = geoSerie.typeStr;
+   ```
+
+## Geojson serialization
+
+Serializers are available to get geojson feature or coordinates strings:
+
+```dart
+   /// Convert to a geojson feature string
+   String feature = geoSerie.toGeoJsonFeature();
+
+   /// Convert to a geojson coordinates string
+   String coordinates = geoSerie.toGeoJsonCoordinates();
+
+   /// Convert to a geojson feature string
+   String feature = geoPoint.toGeoJsonFeature();
+
+   /// Convert to a geojson coordinates string
+   String coordinates = geoPoint.toGeoJsonCoordinates();
    ```
 
 ## Related packages
