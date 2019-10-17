@@ -230,6 +230,18 @@ class GeoPoint {
   /// Convert this geopoint to string
   @override
   String toString() {
+    String n;
+    if (name != null) {
+      n = name;
+    } else {
+      n = "$latitude/$longitude";
+    }
+    String str = "Geopoint $n";
+    return str;
+  }
+
+  /// Convert this geopoint to detailled string
+  String details() {
     String str = "Geopoint: $name\n";
     str += "Lat: $latitude\n";
     str += "Lon: $longitude\n";
