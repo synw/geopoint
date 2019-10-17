@@ -18,21 +18,19 @@ enum GeoSerieType {
 class GeoSerie {
   /// Default constructor: requires a [name] and a [type]
   GeoSerie(
-      {@required this.name,
-      @required this.type,
+      {this.name,
+      this.type,
       this.id,
       this.geoPoints,
       this.surface,
       this.boundary,
-      this.centroid})
-      : assert(name != null),
-        assert(type != null);
+      this.centroid});
 
   /// Name if the geoserie
-  final String name;
+  String name;
 
   /// Id of the geoserie
-  final int id;
+  int id;
 
   /// Type of the geoserie
   GeoSerieType type;
