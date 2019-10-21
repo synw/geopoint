@@ -65,8 +65,8 @@ Methods and getters:
 Datastructure:
 
    ```dart
-   final String name; // required
-   final int id;
+   String name;
+   int id;
    GeoSerieType type;  /// one of [GeoSerieType.group]
                        /// [GeoSerieType.line] or
                        /// [GeoSerieType.polygon]
@@ -110,16 +110,16 @@ Serializers are available to get geojson feature or coordinates strings:
 
 ```dart
    /// Convert to a geojson feature string
-   String feature = geoSerie.toGeoJsonFeature();
+   String feature = geoSerie.toGeoJsonFeatureString();
 
    /// Convert to a geojson coordinates string
-   String coordinates = geoSerie.toGeoJsonCoordinates();
+   String coordinates = geoSerie.toGeoJsonCoordinatesString();
 
    /// Convert to a geojson feature string
-   String feature = geoPoint.toGeoJsonFeature();
+   String feature = geoPoint.toGeoJsonFeatureString();
 
    /// Convert to a geojson coordinates string
-   String coordinates = geoPoint.toGeoJsonCoordinates();
+   String coordinates = geoPoint.toGeoJsonCoordinatesString();
    ```
 
 ## Related packages
