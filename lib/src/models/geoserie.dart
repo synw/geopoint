@@ -100,19 +100,18 @@ class GeoSerie {
   }
 
   /// Convert to a geojson coordinates string
-  String toGeoJsonCoordinates() {
-    var coords = "[";
+  String toGeoJsonCoordinatesString() {
+    final coords = <String>[];
     for (final geoPoint in geoPoints) {
-      coords = coords + geoPoint.toGeoJsonCoordinates();
+      coords.add(geoPoint.toGeoJsonCoordinatesString());
     }
-    coords = coords + "]";
-    return coords;
+    return "[" + coords.join(",") + "]";
   }
 
   /// Convert to a geojson feature string
-  String toGeoJsonFeature() => _toGeoJsonFeature();
+  String toGeoJsonFeatureString() => _toGeoJsonFeatureString();
 
-  String _toGeoJsonFeature() {
+  String _toGeoJsonFeatureString() {
     String featType;
     switch (type) {
       case GeoSerieType.group:
@@ -138,7 +137,7 @@ class GeoSerie {
         '"geometry":{"type":"$type",' +
         '"coordinates":' +
         extra1 +
-        toGeoJsonCoordinates() +
+        toGeoJsonCoordinatesString() +
         extra2 +
         '}}]';
   }
