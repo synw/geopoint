@@ -217,7 +217,7 @@ class GeoPoint {
 
   /// Convert to a geojson coordinates string
   String toGeoJsonCoordinates() {
-    return '["$latitude","$longitude"]';
+    return '[$longitude,$latitude]';
   }
 
   /// Get a formated address from this geopoint
