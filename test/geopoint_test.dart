@@ -41,7 +41,8 @@ void main() {
     str += "Altitude: ${geoPoint.altitude}\n";
     str += "Speed: ${geoPoint.speed}\n";
     str += "Heading: ${geoPoint.heading}\n";
-    expect(geoPoint.toString(), equals(str));
+    expect(geoPoint.toString(), equals("Geopoint ${geoPoint.name}"));
+    expect(geoPoint.details(), equals(str));
   });
 
   test("from json", () {
@@ -134,10 +135,28 @@ void main() {
         throwsA(predicate<dynamic>((dynamic e) => e is AssertionError)));
   });
 
-  test("from latlng", () {
+  test("latlng", () {
     var geoPoint = GeoPoint.fromLatLng(name: "gp", point: LatLng(0.0, 0.0));
     expect(geoPoint.latitude, equals(0.0));
     expect(geoPoint.longitude, equals(0.0));
+    final tl = geoPoint.toLatLng();
+    expect(LatLng(0.0, 0.0), tl);
+  });
+
+  test("tostring", () {
+    var geoPoint = GeoPoint(latitude: 0.0, longitude: 0.0);
+    expect(geoPoint.toString(), "Geopoint 0.0/0.0");
+  });
+
+  test("geojson", () {
+    var geoPoint = GeoPoint(latitude: 0.0, longitude: 0.0, name: "gp");
+    expect(geoPoint.toGeoJsonCoordinatesString(), "[0.0,0.0]");
+    final str = '[{"type":"Feature","properties":{"name":"gp"}, ' +
+        '"geometry":{"type":"Point",' +
+        '"coordinates":' +
+        geoPoint.toGeoJsonCoordinatesString() +
+        '}}]';
+    expect(geoPoint.toGeoJsonFeatureString(), str);
   });
 
   test("address", () {

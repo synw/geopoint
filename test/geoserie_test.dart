@@ -1,5 +1,6 @@
 import "package:test/test.dart";
 import 'package:geopoint/geopoint.dart';
+import 'package:latlong/latlong.dart';
 
 void main() {
   var geoPoints = <GeoPoint>[
@@ -26,13 +27,6 @@ void main() {
     expect(geoSerie.centroid, equals(centroid));
     expect(geoSerie.surface, equals(0.0));
     expect(geoSerie.boundary, equals(boundary));
-  });
-
-  test("null", () {
-    expect(() => GeoSerie(name: null, type: GeoSerieType.line),
-        throwsA(predicate<dynamic>((dynamic e) => e is AssertionError)));
-    expect(() => GeoSerie(name: "gs", type: null),
-        throwsA(predicate<dynamic>((dynamic e) => e is AssertionError)));
   });
 
   test("type", () {
@@ -78,5 +72,39 @@ void main() {
     expect(gs.type, GeoSerieType.group);
     expect(() => GeoSerie.fromNameAndType(name: "gs", typeStr: null),
         throwsA(predicate<dynamic>((dynamic e) => e is AssertionError)));
+  });
+
+  test("latlng", () {
+    expect(<LatLng>[LatLng(0.0, 0.0), LatLng(1.0, 1.0)], geoSerie.toLatLng());
+  });
+
+  test("geojson", () {
+    final gs =
+        GeoSerie(name: "gs", type: GeoSerieType.group, geoPoints: <GeoPoint>[
+      GeoPoint(latitude: 0.0, longitude: 0.0),
+      GeoPoint(latitude: 1.0, longitude: 1.0),
+    ]);
+    final res = "[[0.0,0.0],[1.0,1.0]]";
+    expect(gs.toGeoJsonCoordinatesString(), res);
+    var str = '[{"type":"Feature","properties":{"name":"gs"}, ' +
+        '"geometry":{"type":"MultiPoint",' +
+        '"coordinates":' +
+        gs.toGeoJsonCoordinatesString() +
+        '}}]';
+    expect(gs.toGeoJsonFeatureString(), str);
+    gs.type = GeoSerieType.line;
+    str = '[{"type":"Feature","properties":{"name":"gs"}, ' +
+        '"geometry":{"type":"Line",' +
+        '"coordinates":' +
+        gs.toGeoJsonCoordinatesString() +
+        '}}]';
+    expect(gs.toGeoJsonFeatureString(), str);
+    gs.type = GeoSerieType.polygon;
+    str = '[{"type":"Feature","properties":{"name":"gs"}, ' +
+        '"geometry":{"type":"Polygon",' +
+        '"coordinates":[' +
+        gs.toGeoJsonCoordinatesString() +
+        ']}}]';
+    expect(gs.toGeoJsonFeatureString(), str);
   });
 }
