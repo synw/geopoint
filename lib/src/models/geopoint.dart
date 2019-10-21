@@ -205,18 +205,18 @@ class GeoPoint {
   }
 
   /// Convert to a geojson feature string
-  String toGeoJsonFeature() => _toGeoJsonFeature("Point");
+  String toGeoJsonFeatureString() => _toGeoJsonFeatureString("Point");
 
-  String _toGeoJsonFeature(String type) {
+  String _toGeoJsonFeatureString(String type) {
     return '[{"type":"Feature","properties":{"name":"$name"}, ' +
         '"geometry":{"type":"$type",' +
         '"coordinates":' +
-        toGeoJsonCoordinates() +
+        toGeoJsonCoordinatesString() +
         '}}]';
   }
 
   /// Convert to a geojson coordinates string
-  String toGeoJsonCoordinates() {
+  String toGeoJsonCoordinatesString() {
     return '[$longitude,$latitude]';
   }
 
