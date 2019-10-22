@@ -220,6 +220,14 @@ class GeoPoint {
     return '[$longitude,$latitude]';
   }
 
+  /// Convert to a geojson feature string
+  @deprecated
+  String toGeoJsonFeature() => toGeoJsonFeatureString();
+
+  /// Convert to a geojson coordinates string
+  @deprecated
+  String toGeoJsonCoordinates() => toGeoJsonCoordinatesString();
+
   /// Get a formated address from this geopoint
   String _getAddress() {
     String address = "$number $street $locality ";
