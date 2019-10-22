@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.6.1
+
+Provide support for deprecated geojson serializers
+
+## 0.6.0
+
+- Make the name and type parameters optional in `GeoSerie` constructor
+- Improve the toString method for `GeoPoint`
+- Rename the geojson serializers
+
 ## 0.5.0
 
 - Add the `toLatLng` method to `GeoPoint`
