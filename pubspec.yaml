@@ -12,6 +12,7 @@ dependencies:
   latlong: ^0.6.1
   slugify2: ^0.2.1
   pedantic: ^1.6.0
+  extra_pedantic: ^1.1.1+1
 
 dev_dependencies:
   test: ^1.6.5
