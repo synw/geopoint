@@ -3,14 +3,14 @@ import 'package:geopoint/geopoint.dart';
 import 'package:latlong/latlong.dart';
 
 void main() {
-  var geoPoints = <GeoPoint>[
+  final geoPoints = <GeoPoint>[
     GeoPoint(latitude: 0.0, longitude: 0.0),
     GeoPoint(latitude: 1.0, longitude: 1.0),
   ];
-  GeoPoint centroid = GeoPoint(latitude: 0.0, longitude: 0.0);
-  GeoSerie boundary = GeoSerie(
+  final centroid = GeoPoint(latitude: 0.0, longitude: 0.0);
+  final boundary = GeoSerie(
       name: "gs_boundary", geoPoints: geoPoints, type: GeoSerieType.group);
-  var geoSerie = GeoSerie(
+  final geoSerie = GeoSerie(
       id: 1,
       name: "gs",
       geoPoints: geoPoints,
@@ -39,24 +39,24 @@ void main() {
   });
 
   test("map", () {
-    var data = <String, dynamic>{
+    final data = <String, dynamic>{
       "name": "gs",
       "type": "polygon",
       "id": 1,
       "surface": 0.0
     };
-    var gs = geoSerie.toMap();
+    final gs = geoSerie.toMap();
     expect(gs, equals(data));
   });
 
   test("json", () {
-    var data = <String, dynamic>{
+    final data = <String, dynamic>{
       "name": "gs",
       "type": "line",
       "id": 1,
       "surface": 0.0
     };
-    var gs = GeoSerie.fromJson(data);
+    final gs = GeoSerie.fromJson(data);
     expect(gs.id, equals(1));
     expect(gs.name, equals("gs"));
     expect(gs.type, equals(GeoSerieType.line));
@@ -84,25 +84,25 @@ void main() {
       GeoPoint(latitude: 0.0, longitude: 0.0),
       GeoPoint(latitude: 1.0, longitude: 1.0),
     ]);
-    final res = "[[0.0,0.0],[1.0,1.0]]";
+    const res = "[[0.0,0.0],[1.0,1.0]]";
     expect(gs.toGeoJsonCoordinatesString(), res);
-    var str = '[{"type":"Feature","properties":{"name":"gs"}, ' +
-        '"geometry":{"type":"MultiPoint",' +
-        '"coordinates":' +
+    var str = '[{"type":"Feature","properties":{"name":"gs"}, '
+            '"geometry":{"type":"MultiPoint",'
+            '"coordinates":' +
         gs.toGeoJsonCoordinatesString() +
         '}}]';
     expect(gs.toGeoJsonFeatureString(), str);
     gs.type = GeoSerieType.line;
-    str = '[{"type":"Feature","properties":{"name":"gs"}, ' +
-        '"geometry":{"type":"Line",' +
-        '"coordinates":' +
+    str = '[{"type":"Feature","properties":{"name":"gs"}, '
+            '"geometry":{"type":"Line",'
+            '"coordinates":' +
         gs.toGeoJsonCoordinatesString() +
         '}}]';
     expect(gs.toGeoJsonFeatureString(), str);
     gs.type = GeoSerieType.polygon;
-    str = '[{"type":"Feature","properties":{"name":"gs"}, ' +
-        '"geometry":{"type":"Polygon",' +
-        '"coordinates":[' +
+    str = '[{"type":"Feature","properties":{"name":"gs"}, '
+            '"geometry":{"type":"Polygon",'
+            '"coordinates":[' +
         gs.toGeoJsonCoordinatesString() +
         ']}}]';
     expect(gs.toGeoJsonFeatureString(), str);

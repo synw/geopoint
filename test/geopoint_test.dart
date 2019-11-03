@@ -3,8 +3,8 @@ import 'package:geopoint/geopoint.dart';
 import 'package:latlong/latlong.dart';
 
 void main() {
-  int ts = DateTime.now().millisecondsSinceEpoch;
-  var geoPoint = GeoPoint(
+  final ts = DateTime.now().millisecondsSinceEpoch;
+  final geoPoint = GeoPoint(
       id: 1,
       name: "gp",
       latitude: 0.0,
@@ -46,7 +46,7 @@ void main() {
   });
 
   test("from json", () {
-    Map<String, dynamic> data = <String, dynamic>{
+    final data = <String, dynamic>{
       "id": 1,
       "name": "gp",
       "latitude": 0.0,
@@ -66,7 +66,7 @@ void main() {
       "street": "street",
       "subregion": "subregion"
     };
-    GeoPoint gp = GeoPoint.fromJson(data);
+    final gp = GeoPoint.fromJson(data);
     expect(geoPoint.latitude, equals(gp.latitude));
     expect(geoPoint.longitude, equals(gp.longitude));
     expect(geoPoint.timestamp, equals(gp.timestamp));
@@ -136,27 +136,27 @@ void main() {
   });
 
   test("latlng", () {
-    var geoPoint = GeoPoint.fromLatLng(name: "gp", point: LatLng(0.0, 0.0));
-    expect(geoPoint.latitude, equals(0.0));
-    expect(geoPoint.longitude, equals(0.0));
-    final tl = geoPoint.toLatLng();
+    final gp = GeoPoint.fromLatLng(name: "gp", point: LatLng(0.0, 0.0));
+    expect(gp.latitude, equals(0.0));
+    expect(gp.longitude, equals(0.0));
+    final tl = gp.toLatLng();
     expect(LatLng(0.0, 0.0), tl);
   });
 
   test("tostring", () {
-    var geoPoint = GeoPoint(latitude: 0.0, longitude: 0.0);
-    expect(geoPoint.toString(), "Geopoint 0.0/0.0");
+    final gp = GeoPoint(latitude: 0.0, longitude: 0.0);
+    expect(gp.toString(), "Geopoint 0.0/0.0");
   });
 
   test("geojson", () {
-    var geoPoint = GeoPoint(latitude: 0.0, longitude: 0.0, name: "gp");
-    expect(geoPoint.toGeoJsonCoordinatesString(), "[0.0,0.0]");
-    final str = '[{"type":"Feature","properties":{"name":"gp"}, ' +
-        '"geometry":{"type":"Point",' +
-        '"coordinates":' +
-        geoPoint.toGeoJsonCoordinatesString() +
+    final gp = GeoPoint(latitude: 0.0, longitude: 0.0, name: "gp");
+    expect(gp.toGeoJsonCoordinatesString(), "[0.0,0.0]");
+    final str = '[{"type":"Feature","properties":{"name":"gp"}, '
+            '"geometry":{"type":"Point",'
+            '"coordinates":' +
+        gp.toGeoJsonCoordinatesString() +
         '}}]';
-    expect(geoPoint.toGeoJsonFeatureString(), str);
+    expect(gp.toGeoJsonFeatureString(), str);
   });
 
   test("address", () {
@@ -169,7 +169,7 @@ void main() {
     expect(geoPoint.number, equals("number"));
     String address =
         "${geoPoint.number} ${geoPoint.street} ${geoPoint.locality} ";
-    address += "${geoPoint.postalCode} ${geoPoint.subregion}" +
+    address += "${geoPoint.postalCode} ${geoPoint.subregion}"
         " ${geoPoint.region} ${geoPoint.country}";
     expect(geoPoint.address, equals(address));
   });

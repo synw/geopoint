@@ -59,10 +59,9 @@ class GeoSerie {
   }
 
   /// Make a [GeoSerie] from name and serie type
-  GeoSerie.fromNameAndType({@required String name, String typeStr, int id})
-      : this.name = name,
-        this.id = id,
-        assert(typeStr != null) {
+  GeoSerie.fromNameAndType(
+      {@required this.name, @required String typeStr, this.id})
+      : assert(typeStr != null) {
     type = _typeFromString(typeStr);
   }
 
@@ -112,11 +111,11 @@ class GeoSerie {
   String toGeoJsonFeatureString() => _toGeoJsonFeatureString();
 
   /// Convert to a geojson coordinates string
-  @deprecated
+  @Deprecated("Please use toGeoJsonCoordinatesString")
   String toGeoJsonCoordinates() => toGeoJsonCoordinatesString();
 
   /// Convert to a geojson feature string
-  @deprecated
+  @Deprecated("Please use toGeoJsonFeatureString")
   String toGeoJsonFeature() => toGeoJsonFeatureString();
 
   String _toGeoJsonFeatureString() {
@@ -141,9 +140,9 @@ class GeoSerie {
       extra1 = "[";
       extra2 = "]";
     }
-    return '[{"type":"Feature","properties":{"name":"$name"}, ' +
-        '"geometry":{"type":"$type",' +
-        '"coordinates":' +
+    return '[{"type":"Feature","properties":{"name":"$name"}, '
+            '"geometry":{"type":"$type",'
+            '"coordinates":' +
         extra1 +
         toGeoJsonCoordinatesString() +
         extra2 +

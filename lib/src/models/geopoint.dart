@@ -1,6 +1,7 @@
 import 'dart:io';
-import 'package:meta/meta.dart';
+
 import 'package:latlong/latlong.dart';
+import 'package:meta/meta.dart';
 import 'package:slugify2/slugify.dart';
 
 var _slugify = Slugify();
@@ -9,9 +10,9 @@ var _slugify = Slugify();
 class GeoPoint {
   /// Default constructor: needs [latitude] and [longitude]
   GeoPoint(
-      {this.name,
-      @required this.latitude,
+      {@required this.latitude,
       @required this.longitude,
+      this.name,
       this.id,
       this.slug,
       this.timestamp,
@@ -130,9 +131,8 @@ class GeoPoint {
   ///
   /// [name] is the name of this [GeoPoint] and
   /// [point] is a [LatLng] coordinate
-  GeoPoint.fromLatLng({String name, @required LatLng point})
-      : name = name,
-        latitude = point.latitude,
+  GeoPoint.fromLatLng({@required LatLng point, this.name})
+      : latitude = point.latitude,
         longitude = point.longitude {
     if (name != null) slug = _slugify.slugify(name);
   }
@@ -208,9 +208,9 @@ class GeoPoint {
   String toGeoJsonFeatureString() => _toGeoJsonFeatureString("Point");
 
   String _toGeoJsonFeatureString(String type) {
-    return '[{"type":"Feature","properties":{"name":"$name"}, ' +
-        '"geometry":{"type":"$type",' +
-        '"coordinates":' +
+    return '[{"type":"Feature","properties":{"name":"$name"}, '
+            '"geometry":{"type":"$type",'
+            '"coordinates":' +
         toGeoJsonCoordinatesString() +
         '}}]';
   }
@@ -221,18 +221,17 @@ class GeoPoint {
   }
 
   /// Convert to a geojson feature string
-  @deprecated
+  @Deprecated("Please use toGeoJsonFeatureString")
   String toGeoJsonFeature() => toGeoJsonFeatureString();
 
   /// Convert to a geojson coordinates string
-  @deprecated
+  @Deprecated("Please use toGeoJsonCoordinatesString")
   String toGeoJsonCoordinates() => toGeoJsonCoordinatesString();
 
   /// Get a formated address from this geopoint
   String _getAddress() {
-    String address = "$number $street $locality ";
-    address += "$postalCode $subregion $region $country";
-    return address;
+    return "$number $street $locality "
+        "$postalCode $subregion $region $country";
   }
 
   /// Convert this geopoint to string
@@ -244,8 +243,7 @@ class GeoPoint {
     } else {
       n = "$latitude/$longitude";
     }
-    String str = "Geopoint $n";
-    return str;
+    return "Geopoint $n";
   }
 
   /// Convert this geopoint to detailled string

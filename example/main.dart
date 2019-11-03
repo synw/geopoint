@@ -16,7 +16,7 @@ final List<Place> places = [
   Place("Tour Eiffel", LatLng(48.85801, 2.294713))
 ];
 
-void main() async {
+Future<void> main() async {
   final geoPoints = <GeoPoint>[];
   print("Places in Paris:");
   for (final place in places) {
