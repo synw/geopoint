@@ -110,14 +110,6 @@ class GeoSerie {
   /// Convert to a geojson feature string
   String toGeoJsonFeatureString() => _toGeoJsonFeatureString();
 
-  /// Convert to a geojson coordinates string
-  @Deprecated("Please use toGeoJsonCoordinatesString")
-  String toGeoJsonCoordinates() => toGeoJsonCoordinatesString();
-
-  /// Convert to a geojson feature string
-  @Deprecated("Please use toGeoJsonFeatureString")
-  String toGeoJsonFeature() => toGeoJsonFeatureString();
-
   String _toGeoJsonFeatureString() {
     String featType;
     switch (type) {
