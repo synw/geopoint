@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.7.0
+
+- Remove some deprecated serialization methods
+- Use extra_pedantic for static analysis
+
 ## 0.6.1
 
 Provide support for deprecated geojson serializers
