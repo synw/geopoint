@@ -132,13 +132,13 @@ class GeoSerie {
       extra1 = "[";
       extra2 = "]";
     }
-    return '[{"type":"Feature","properties":{"name":"$name"}, '
+    return '{"type":"Feature","properties":{"name":"$name"}, '
             '"geometry":{"type":"$type",'
             '"coordinates":' +
         extra1 +
         toGeoJsonCoordinatesString() +
         extra2 +
-        '}}]';
+        '}}';
   }
 
   GeoSerieType _typeFromString(String typeStr) {
