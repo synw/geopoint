@@ -35,7 +35,7 @@ void main() {
     expect(geoPoint.name, equals("gp"));
     expect(geoPoint.slug, equals("gp"));
     expect(geoPoint.point, equals(LatLng(0.0, 0.0)));
-    String str = "Geopoint: ${geoPoint.name}\n";
+    var str = "Geopoint: ${geoPoint.name}\n";
     str += "Lat: ${geoPoint.latitude}\n";
     str += "Lon: ${geoPoint.longitude}\n";
     str += "Altitude: ${geoPoint.altitude}\n";
@@ -167,8 +167,7 @@ void main() {
     expect(geoPoint.sublocality, equals("sublocality"));
     expect(geoPoint.postalCode, equals("postalCode"));
     expect(geoPoint.number, equals("number"));
-    String address =
-        "${geoPoint.number} ${geoPoint.street} ${geoPoint.locality} ";
+    var address = "${geoPoint.number} ${geoPoint.street} ${geoPoint.locality} ";
     address += "${geoPoint.postalCode} ${geoPoint.subregion}"
         " ${geoPoint.region} ${geoPoint.country}";
     expect(geoPoint.address, equals(address));
