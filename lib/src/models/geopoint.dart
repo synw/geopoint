@@ -208,11 +208,11 @@ class GeoPoint {
   String toGeoJsonFeatureString() => _toGeoJsonFeatureString("Point");
 
   String _toGeoJsonFeatureString(String type) {
-    return '[{"type":"Feature","properties":{"name":"$name"}, '
+    return '{"type":"Feature","properties":{"name":"$name"}, '
             '"geometry":{"type":"$type",'
             '"coordinates":' +
         toGeoJsonCoordinatesString() +
-        '}}]';
+        '}}';
   }
 
   /// Convert to a geojson coordinates string
