@@ -126,8 +126,8 @@ class GeoSerie {
   }
 
   String _buildGeoJsonFeature(String type) {
-    String extra1 = "";
-    String extra2 = "";
+    var extra1 = "";
+    var extra2 = "";
     if (type == "Polygon") {
       extra1 = "[";
       extra2 = "]";

@@ -240,7 +240,7 @@ class GeoPoint {
 
   /// Convert this geopoint to detailled string
   String details() {
-    String str = "Geopoint: $name\n";
+    var str = "Geopoint: $name\n";
     str += "Lat: $latitude\n";
     str += "Lon: $longitude\n";
     str += "Altitude: $altitude\n";
