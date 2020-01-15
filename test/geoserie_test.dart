@@ -86,25 +86,25 @@ void main() {
     ]);
     const res = "[[0.0,0.0],[1.0,1.0]]";
     expect(gs.toGeoJsonCoordinatesString(), res);
-    var str = '[{"type":"Feature","properties":{"name":"gs"}, '
+    var str = '{"type":"Feature","properties":{"name":"gs"}, '
             '"geometry":{"type":"MultiPoint",'
             '"coordinates":' +
         gs.toGeoJsonCoordinatesString() +
-        '}}]';
+        '}}';
     expect(gs.toGeoJsonFeatureString(), str);
     gs.type = GeoSerieType.line;
-    str = '[{"type":"Feature","properties":{"name":"gs"}, '
+    str = '{"type":"Feature","properties":{"name":"gs"}, '
             '"geometry":{"type":"Line",'
             '"coordinates":' +
         gs.toGeoJsonCoordinatesString() +
-        '}}]';
+        '}}';
     expect(gs.toGeoJsonFeatureString(), str);
     gs.type = GeoSerieType.polygon;
-    str = '[{"type":"Feature","properties":{"name":"gs"}, '
+    str = '{"type":"Feature","properties":{"name":"gs"}, '
             '"geometry":{"type":"Polygon",'
             '"coordinates":[' +
         gs.toGeoJsonCoordinatesString() +
-        ']}}]';
+        ']}}';
     expect(gs.toGeoJsonFeatureString(), str);
   });
 }
