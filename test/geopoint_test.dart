@@ -151,11 +151,11 @@ void main() {
   test("geojson", () {
     final gp = GeoPoint(latitude: 0.0, longitude: 0.0, name: "gp");
     expect(gp.toGeoJsonCoordinatesString(), "[0.0,0.0]");
-    final str = '[{"type":"Feature","properties":{"name":"gp"}, '
+    final str = '{"type":"Feature","properties":{"name":"gp"}, '
             '"geometry":{"type":"Point",'
             '"coordinates":' +
         gp.toGeoJsonCoordinatesString() +
-        '}}]';
+        '}}';
     expect(gp.toGeoJsonFeatureString(), str);
   });
 
