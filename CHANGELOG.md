@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.8.0
+
+- Update dependencies
+- Fix in `GeoSerie` line geojson serialization
+
 ## 0.7.1
 
 Fix geojson serialization
