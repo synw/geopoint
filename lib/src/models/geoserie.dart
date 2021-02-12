@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:latlong/latlong.dart';
 import 'package:meta/meta.dart';
 import 'geopoint.dart';
@@ -108,31 +110,31 @@ class GeoSerie {
   }
 
   /// Convert to a geojson feature string
-  String toGeoJsonFeatureString() => _toGeoJsonFeatureString();
+  String toGeoJsonFeatureString(Map properties) => _toGeoJsonFeatureString(properties);
 
-  String _toGeoJsonFeatureString() {
+  String _toGeoJsonFeatureString(Map properties) {
     String featType;
     switch (type) {
       case GeoSerieType.group:
         featType = "MultiPoint";
         break;
       case GeoSerieType.line:
-        featType = "Line";
+        featType = "LineString";
         break;
       case GeoSerieType.polygon:
         featType = "Polygon";
     }
-    return _buildGeoJsonFeature(featType);
+    return _buildGeoJsonFeature(featType, properties ?? <String, dynamic>{"name": name});
   }
 
-  String _buildGeoJsonFeature(String type) {
+  String _buildGeoJsonFeature(String type, Map properties) {
     var extra1 = "";
     var extra2 = "";
     if (type == "Polygon") {
       extra1 = "[";
       extra2 = "]";
     }
-    return '{"type":"Feature","properties":{"name":"$name"}, '
+    return '{"type":"Feature", "properties":${jsonEncode(properties)}, '
             '"geometry":{"type":"$type",'
             '"coordinates":' +
         extra1 +

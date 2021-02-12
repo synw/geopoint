@@ -91,20 +91,20 @@ void main() {
             '"coordinates":' +
         gs.toGeoJsonCoordinatesString() +
         '}}';
-    expect(gs.toGeoJsonFeatureString(), str);
+    expect(gs.toGeoJsonFeatureString(null), str);
     gs.type = GeoSerieType.line;
     str = '{"type":"Feature","properties":{"name":"gs"}, '
             '"geometry":{"type":"Line",'
             '"coordinates":' +
         gs.toGeoJsonCoordinatesString() +
         '}}';
-    expect(gs.toGeoJsonFeatureString(), str);
+    expect(gs.toGeoJsonFeatureString(null), str);
     gs.type = GeoSerieType.polygon;
     str = '{"type":"Feature","properties":{"name":"gs"}, '
             '"geometry":{"type":"Polygon",'
             '"coordinates":[' +
         gs.toGeoJsonCoordinatesString() +
         ']}}';
-    expect(gs.toGeoJsonFeatureString(), str);
+    expect(gs.toGeoJsonFeatureString(null), str);
   });
 }
