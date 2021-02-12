@@ -110,7 +110,8 @@ class GeoSerie {
   }
 
   /// Convert to a geojson feature string
-  String toGeoJsonFeatureString(Map properties) => _toGeoJsonFeatureString(properties);
+  String toGeoJsonFeatureString(Map properties) =>
+      _toGeoJsonFeatureString(properties);
 
   String _toGeoJsonFeatureString(Map properties) {
     String featType;
@@ -124,7 +125,8 @@ class GeoSerie {
       case GeoSerieType.polygon:
         featType = "Polygon";
     }
-    return _buildGeoJsonFeature(featType, properties ?? <String, dynamic>{"name": name});
+    return _buildGeoJsonFeature(
+        featType, properties ?? <String, dynamic>{"name": name});
   }
 
   String _buildGeoJsonFeature(String type, Map properties) {
@@ -134,7 +136,7 @@ class GeoSerie {
       extra1 = "[";
       extra2 = "]";
     }
-    return '{"type":"Feature", "properties":${jsonEncode(properties)}, '
+    return '{"type":"Feature","properties":${jsonEncode(properties)},'
             '"geometry":{"type":"$type",'
             '"coordinates":' +
         extra1 +
