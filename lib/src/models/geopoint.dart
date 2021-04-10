@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:latlong/latlong.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:meta/meta.dart';
 import 'package:slugify2/slugify.dart';
 
