@@ -1,6 +1,6 @@
 import "package:test/test.dart";
 import 'package:geopoint/geopoint.dart';
-import 'package:latlong/latlong.dart';
+import 'package:latlong2/latlong.dart';
 
 void main() {
   final ts = DateTime.now().millisecondsSinceEpoch;
