@@ -1,17 +1,14 @@
 import 'dart:io';
 
-import 'package:latlong/latlong.dart';
-import 'package:meta/meta.dart';
-import 'package:slugify2/slugify.dart';
+import 'package:latlong2/latlong.dart';
+import 'package:slugify/slugify.dart';
 
-var _slugify = Slugify();
-
-/// A class to hold geopoint data structure
+/// A class to hold geo point data structure
 class GeoPoint {
   /// Default constructor: needs [latitude] and [longitude]
   GeoPoint(
-      {@required this.latitude,
-      @required this.longitude,
+      {required this.latitude,
+      required this.longitude,
       this.name,
       this.id,
       this.slug,
@@ -29,14 +26,12 @@ class GeoPoint {
       this.speedAccuracy,
       this.street,
       this.subregion,
-      this.images})
-      : assert(latitude != null),
-        assert(longitude != null) {
-    if (slug == null && name != null) slug = _slugify.slugify(name);
+      this.images}) {
+    if (slug == null && name != null) slug = slugify(name!, delimiter: "-");
   }
 
   /// The name of the geopoint
-  String name;
+  String? name;
 
   /// A latitude coordinate
   final double latitude;
@@ -46,69 +41,70 @@ class GeoPoint {
 
   /// A string without spaces nor special characters. Can be used
   /// to define file paths
-  String slug;
+  String? slug;
 
   /// The id of the geopoint
-  int id;
+  int? id;
 
   /// The timestamp
-  int timestamp;
+  int? timestamp;
 
-  /// The altitude of the geopoint
-  double altitude;
+  /// The altitude of the geo point
+  double? altitude;
 
   /// The speed
-  double speed;
+  double? speed;
 
-  /// The accuracy of the mesurement
-  double accuracy;
+  /// The accuracy of the measurement
+  double? accuracy;
 
   /// The accuracy of the speed
-  double speedAccuracy;
+  double? speedAccuracy;
 
   /// The heading
-  double heading;
+  double? heading;
 
   /// Number in the street
-  String number;
+  String? number;
 
   /// Street name
-  String street;
+  String? street;
 
   /// Locality name
-  String locality;
+  String? locality;
 
-  /// Sublocality name
-  String sublocality;
+  /// Sub locality name
+  String? sublocality;
 
   /// Local postal code
-  String postalCode;
+  String? postalCode;
 
   /// Subregion
-  String subregion;
+  String? subregion;
 
   /// Region
-  String region;
+  String? region;
 
   /// Country
-  String country;
+  String? country;
 
-  /// A list of images can be attached to the geopoint
-  List<File> images;
+  /// A list of images can be attached to the geo point
+  List<File>? images;
 
-  /// the formated address of the [GeoPoint]
+  /// the formatted address of the [GeoPoint]
   String get address => _getAddress();
 
   /// the [LatLng] of the [GeoPoint]
   LatLng get point => LatLng(latitude, longitude);
 
-  /// Build this geopoint from json data
+  /// Build this geo point from json data
+  /// Default constructor: needs [latitude] and [longitude]
   GeoPoint.fromJson(Map<String, dynamic> json)
       : id = int.tryParse("${json["id"]}"),
         name = "${json["name"]}",
         timestamp = int.tryParse("${json["timestamp"]}"),
-        latitude = double.tryParse("${json["latitude"]}"),
-        longitude = double.tryParse("${json["longitude"]}"),
+        latitude = double.tryParse("${json["latitude"]}") ?? -1,
+        longitude = double.tryParse("${json["longitude"]}") ?? -1,
         altitude = double.tryParse("${json["altitude"]}"),
         speed = double.tryParse("${json["speed"]}"),
         accuracy = double.tryParse("${json["accuracy"]}"),
@@ -123,7 +119,7 @@ class GeoPoint {
         region = "${json["region"]}",
         country = "${json["country"]}" {
     if (slug == null && name != null) {
-      slug = _slugify.slugify("${json["name"]}");
+      slug = slugify("${json["name"]}");
     }
   }
 
@@ -131,15 +127,15 @@ class GeoPoint {
   ///
   /// [name] is the name of this [GeoPoint] and
   /// [point] is a [LatLng] coordinate
-  GeoPoint.fromLatLng({@required LatLng point, this.name})
+  GeoPoint.fromLatLng({required LatLng point, this.name})
       : latitude = point.latitude,
         longitude = point.longitude {
-    if (name != null) slug = _slugify.slugify(name);
+    if (name != null) slug = slugify(name!);
   }
 
-  /// Get a json map from this geopoint
+  /// Get a json map from this geo point
   ///
-  /// [withId] include the id of the geopoint or not
+  /// [withId] include the id of the geo point or not
   Map<String, dynamic> toMap({bool withId = true}) {
     final json = <String, dynamic>{
       "name": name,
@@ -164,9 +160,9 @@ class GeoPoint {
     return json;
   }
 
-  /// Get a strings map from this geopoint
+  /// Get a strings map from this geo point
   ///
-  /// [withId] include the id of the geopoint or not
+  /// [withId] include the id of the geo point or not
   Map<String, String> toStringsMap({bool withId = true}) {
     final json = <String, String>{
       "name": "$name",
@@ -192,8 +188,8 @@ class GeoPoint {
   }
 
   /// Convert this [GeoPoint] to a [LatLng] object
-  LatLng toLatLng({bool ignoreErrors = false}) {
-    LatLng latLng;
+  LatLng? toLatLng({bool ignoreErrors = false}) {
+    LatLng? latLng;
     try {
       latLng = LatLng(latitude, longitude);
     } catch (e) {
@@ -220,16 +216,16 @@ class GeoPoint {
     return '[$longitude,$latitude]';
   }
 
-  /// Get a formated address from this geopoint
+  /// Get a formatted address from this geo point
   String _getAddress() {
     return "$number $street $locality "
         "$postalCode $subregion $region $country";
   }
 
-  /// Convert this geopoint to string
+  /// Convert this geo point to string
   @override
   String toString() {
-    String n;
+    String? n;
     if (name != null) {
       n = name;
     } else {
@@ -238,7 +234,7 @@ class GeoPoint {
     return "Geopoint $n";
   }
 
-  /// Convert this geopoint to detailled string
+  /// Convert this geo point to detailed string
   String details() {
     var str = "Geopoint: $name\n";
     str += "Lat: $latitude\n";
