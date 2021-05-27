@@ -62,7 +62,7 @@ class GeoSerie {
   int? id;
 
   /// Type of the geoserie
-  late GeoSerieType type;
+  GeoSerieType type;
 
   /// The list of [GeoPoint] in the serie
   List<GeoPoint>? geoPoints;

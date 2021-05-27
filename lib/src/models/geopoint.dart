@@ -3,6 +3,9 @@ import 'dart:io';
 import 'package:latlong2/latlong.dart';
 import 'package:slugify/slugify.dart';
 
+/// inValidLocation
+double _inValidLocation = -181.0;
+
 /// A class to hold geo point data structure
 class GeoPoint {
   /// Default constructor: needs [latitude] and [longitude]
@@ -27,7 +30,7 @@ class GeoPoint {
       this.street,
       this.subregion,
       this.images}) {
-    if (slug == null && name != null) slug = slugify(name!, delimiter: "-");
+    if (slug == null && name != null) slug = slugify(name!);
   }
 
   /// The name of the geopoint
@@ -103,8 +106,8 @@ class GeoPoint {
       : id = int.tryParse("${json["id"]}"),
         name = "${json["name"]}",
         timestamp = int.tryParse("${json["timestamp"]}"),
-        latitude = double.tryParse("${json["latitude"]}") ?? -1,
-        longitude = double.tryParse("${json["longitude"]}") ?? -1,
+        latitude = double.tryParse("${json["latitude"]}") ?? _inValidLocation,
+        longitude = double.tryParse("${json["longitude"]}") ?? _inValidLocation,
         altitude = double.tryParse("${json["altitude"]}"),
         speed = double.tryParse("${json["speed"]}"),
         accuracy = double.tryParse("${json["accuracy"]}"),
