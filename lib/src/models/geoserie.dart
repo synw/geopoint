@@ -28,6 +28,18 @@ extension GeoSerieTypeExtension on GeoSerieType {
         return "polygon";
     }
   }
+
+  /// feature String value of [GeoSerieType] Enum.
+  String featureString() {
+    switch (this) {
+      case GeoSerieType.group:
+        return "MultiPoint";
+      case GeoSerieType.line:
+        return "LineString";
+      case GeoSerieType.polygon:
+        return "Polygon";
+    }
+  }
 }
 
 /// static method to convert string to [GeoSerieType].
@@ -39,6 +51,10 @@ GeoSerieType _typeFromString(String? typeStr) {
       return GeoSerieType.line;
     case "polygon":
       return GeoSerieType.polygon;
+    case "multipoint":
+      return GeoSerieType.group;
+    case "linestring":
+      return GeoSerieType.line;
   }
   throw Exception("Invalid Type");
 }
@@ -77,7 +93,7 @@ class GeoSerie {
   GeoPoint? centroid;
 
   /// The type of the serie as a string
-  String? get typeStr => type.stringValue();
+  String get typeStr => type.stringValue();
 
   /// Make a [GeoSerie] from json data
   GeoSerie.fromJson(Map<String, dynamic> json)
@@ -100,7 +116,7 @@ class GeoSerie {
     /// [withId] include the id in the result
     final json = <String, dynamic>{
       "name": name,
-      "type": "${_typeToString(type)}",
+      "type": typeStr,
       "surface": surface
     };
     if (withId) {
@@ -127,6 +143,9 @@ class GeoSerie {
   /// Convert to a geojson coordinates string
   String toGeoJsonCoordinatesString() {
     final coords = <String>[];
+    if (geoPoints == null) {
+      return "[]";
+    }
     for (final geoPoint in geoPoints!) {
       coords.add(geoPoint.toGeoJsonCoordinatesString());
     }
@@ -135,54 +154,22 @@ class GeoSerie {
 
   /// Convert to a geojson feature string
   String toGeoJsonFeatureString(Map<String, dynamic>? properties) =>
-      _toGeoJsonFeatureString(properties);
+      _buildGeoJsonFeature(type, properties ?? <String, dynamic>{"name": name});
 
-  String _toGeoJsonFeatureString(Map<String, dynamic>? properties) {
-    String? featType;
-    switch (type) {
-      case GeoSerieType.group:
-        featType = "MultiPoint";
-        break;
-      case GeoSerieType.line:
-        featType = "LineString";
-        break;
-      case GeoSerieType.polygon:
-        featType = "Polygon";
-    }
-    return _buildGeoJsonFeature(
-        featType, properties ?? <String, dynamic>{"name": name});
-  }
-
-  String _buildGeoJsonFeature(String? type, Map<String, dynamic> properties) {
+  String _buildGeoJsonFeature(
+      GeoSerieType type, Map<String, dynamic> properties) {
     var extra1 = "";
     var extra2 = "";
-    if (type == "Polygon") {
+    if (type == GeoSerieType.polygon) {
       extra1 = "[";
       extra2 = "]";
     }
     return '{"type":"Feature","properties":${jsonEncode(properties)},'
-            '"geometry":{"type":"$type",'
+            '"geometry":{"type":"${type.featureString()}",'
             '"coordinates":' +
         extra1 +
         toGeoJsonCoordinatesString() +
         extra2 +
         '}}';
-  }
-
-  String? _typeToString([GeoSerieType? st]) {
-    GeoSerieType? t;
-    (st != null) ? t = st : t = type;
-    String? res;
-    switch (t) {
-      case GeoSerieType.group:
-        res = "group";
-        break;
-      case GeoSerieType.line:
-        res = "line";
-        break;
-      case GeoSerieType.polygon:
-        res = "polygon";
-    }
-    return res;
   }
 }
