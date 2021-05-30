@@ -128,6 +128,9 @@ class GeoSerie {
   /// Get a list of [LatLng] from this [GeoSerie]
   List<LatLng> toLatLng({bool ignoreErrors = false}) {
     final points = <LatLng>[];
+    if (geoPoints == null) {
+      return points;
+    }
     for (final geoPoint in geoPoints!) {
       try {
         points.add(geoPoint.point);
