@@ -7,11 +7,11 @@ environment:
   sdk: '>=2.3.0 <3.0.0'
 
 dependencies:
-  extra_pedantic: ^1.2.0
+  extra_pedantic: ^1.5.0
   latlong2: ^0.8.0
-  meta: ^1.1.8
-  pedantic: ^1.9.2
-  slugify2: ^0.2.1
+  meta: ^1.4.0
+  pedantic: ^1.11.0
+  slugify: ^2.0.0
 
 dev_dependencies:
   test: ^1.6.5
