@@ -1,10 +1,8 @@
 import 'dart:io';
 
-import 'package:latlong/latlong.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:meta/meta.dart';
-import 'package:slugify2/slugify.dart';
-
-var _slugify = Slugify();
+import 'package:slugify/slugify.dart';
 
 /// A class to hold geopoint data structure
 class GeoPoint {
@@ -32,7 +30,7 @@ class GeoPoint {
       this.images})
       : assert(latitude != null),
         assert(longitude != null) {
-    if (slug == null && name != null) slug = _slugify.slugify(name);
+    if (slug == null && name != null) slug = slugify(name);
   }
 
   /// The name of the geopoint
@@ -123,7 +121,7 @@ class GeoPoint {
         region = "${json["region"]}",
         country = "${json["country"]}" {
     if (slug == null && name != null) {
-      slug = _slugify.slugify("${json["name"]}");
+      slug = slugify("${json["name"]}");
     }
   }
 
@@ -134,7 +132,7 @@ class GeoPoint {
   GeoPoint.fromLatLng({@required LatLng point, this.name})
       : latitude = point.latitude,
         longitude = point.longitude {
-    if (name != null) slug = _slugify.slugify(name);
+    if (name != null) slug = slugify(name);
   }
 
   /// Get a json map from this geopoint

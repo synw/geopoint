@@ -1,5 +1,5 @@
 import 'package:geopoint/geopoint.dart';
-import 'package:latlong/latlong.dart';
+import 'package:latlong2/latlong.dart';
 
 class Place {
   Place(this.name, this.point);
