@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:latlong/latlong.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:meta/meta.dart';
 import 'geopoint.dart';
 
