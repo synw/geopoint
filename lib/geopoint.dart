@@ -1,4 +1,4 @@
-/// Datastructures and methods for Geolocator. Provides a [GeoPoint]
+/// Data structures and methods for Geolocator. Provides a [GeoPoint]
 /// model for individual points and a [GeoSerie] model for groups, lines
 /// or polygons
 library geopoint;

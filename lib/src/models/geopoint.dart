@@ -33,7 +33,7 @@ class GeoPoint {
     if (slug == null && name != null) slug = slugify(name!);
   }
 
-  /// The name of the geopoint
+  /// The name of the geoPoint
   String? name;
 
   /// A latitude coordinate
@@ -46,13 +46,13 @@ class GeoPoint {
   /// to define file paths
   String? slug;
 
-  /// The id of the geopoint
+  /// The id of the geoPoint
   int? id;
 
   /// The timestamp
   int? timestamp;
 
-  /// The altitude of the geo point
+  /// The altitude of the geoPoint
   double? altitude;
 
   /// The speed
@@ -122,7 +122,7 @@ class GeoPoint {
         region = "${json["region"]}",
         country = "${json["country"]}" {
     if (slug == null && name != null) {
-      slug = slugify("${json["name"]}");
+      slug = slugify(name!);
     }
   }
 
