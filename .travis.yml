@@ -11,3 +11,7 @@ script: dart test --coverage=coverage && dart run coverage:format_coverage --lco
 
 branches:
   only: [master]
+
+cache:
+  directories:
+    - $HOME/.pub-cache
