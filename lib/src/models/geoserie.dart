@@ -66,10 +66,11 @@ class GeoSerie {
       {required this.name,
       required this.type,
       this.id,
-      this.geoPoints,
       this.surface,
       this.boundary,
-      this.centroid});
+      this.centroid,
+      List<GeoPoint>? geoPoints})
+      : this.geoPoints = geoPoints ?? <GeoPoint>[];
 
   /// Name if the geoserie
   String name;
@@ -81,7 +82,7 @@ class GeoSerie {
   GeoSerieType type;
 
   /// The list of [GeoPoint] in the serie
-  List<GeoPoint>? geoPoints;
+  List<GeoPoint> geoPoints;
 
   /// The surface of a geometry
   num? surface;
@@ -100,12 +101,14 @@ class GeoSerie {
       : name = "${json["name"]}",
         id = int.parse("${json["id"]}"),
         surface = double.tryParse("${json["surface"]}"),
-        type = _typeFromString("${json["type"]}");
+        type = _typeFromString("${json["type"]}"),
+        this.geoPoints = <GeoPoint>[];
 
   /// Make a [GeoSerie] from name and serie type
   GeoSerie.fromNameAndType(
       {required this.name, required String typeStr, this.id})
-      : type = _typeFromString(typeStr);
+      : type = _typeFromString(typeStr),
+        this.geoPoints = <GeoPoint>[];
 
   /// [name] the name of the [GeoSerie]
   /// [typeStr] the type of the serie: group, line or polygon
@@ -128,10 +131,7 @@ class GeoSerie {
   /// Get a list of [LatLng] from this [GeoSerie]
   List<LatLng> toLatLng({bool ignoreErrors = false}) {
     final points = <LatLng>[];
-    if (geoPoints == null) {
-      return points;
-    }
-    for (final geoPoint in geoPoints!) {
+    for (final geoPoint in geoPoints) {
       try {
         points.add(geoPoint.point);
       } catch (_) {
@@ -146,10 +146,8 @@ class GeoSerie {
   /// Convert to a geojson coordinates string
   String toGeoJsonCoordinatesString() {
     final coords = <String>[];
-    if (geoPoints == null) {
-      return "[]";
-    }
-    for (final geoPoint in geoPoints!) {
+
+    for (final geoPoint in geoPoints) {
       coords.add(geoPoint.toGeoJsonCoordinatesString());
     }
     return "[" + coords.join(",") + "]";

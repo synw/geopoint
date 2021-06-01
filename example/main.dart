@@ -32,7 +32,7 @@ Future<void> main() async {
     print("GeoPoints are empty");
     return;
   }
-  for (final gp in geoSerie.geoPoints!) {
+  for (final gp in geoSerie.geoPoints) {
     print("${gp.name}: ${gp.latitude}/${gp.longitude}");
   }
 }
