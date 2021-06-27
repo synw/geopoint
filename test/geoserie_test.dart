@@ -1,6 +1,6 @@
 import "package:test/test.dart";
 import 'package:geopoint/geopoint.dart';
-import 'package:latlong/latlong.dart';
+import 'package:latlong2/latlong.dart';
 
 void main() {
   final geoPoints = <GeoPoint>[
@@ -63,6 +63,29 @@ void main() {
     expect(gs.surface, equals(0.0));
   });
 
+  test("json invalid type", () {
+    final noTypeData = <String, dynamic>{"name": "gs", "id": 1, "surface": 0.0};
+    GeoSerie? geoSerie;
+    try {
+      geoSerie = GeoSerie.fromJson(noTypeData);
+    } catch (e) {
+      expect(e is Exception, true);
+    }
+    expect(geoSerie == null, true);
+    //
+    final inValidTypeData = <String, dynamic>{
+      "name": "gs",
+      "type": "circle",
+      "id": 1,
+      "surface": 0.0
+    };
+    try {
+      geoSerie = GeoSerie.fromJson(inValidTypeData);
+    } catch (e) {
+      expect(e is Exception, true);
+    }
+    expect(geoSerie == null, true);
+  });
   test("name and type", () {
     var gs = GeoSerie.fromNameAndType(name: "gs", typeStr: "line");
     expect(gs.type, GeoSerieType.line);
@@ -70,11 +93,9 @@ void main() {
     expect(gs.type, GeoSerieType.polygon);
     gs = GeoSerie.fromNameAndType(name: "gs", typeStr: "group");
     expect(gs.type, GeoSerieType.group);
-    expect(() => GeoSerie.fromNameAndType(name: "gs", typeStr: null),
-        throwsA(predicate<dynamic>((dynamic e) => e is AssertionError)));
   });
 
-  test("latlng", () {
+  test("latLng", () {
     expect(<LatLng>[LatLng(0.0, 0.0), LatLng(1.0, 1.0)], geoSerie.toLatLng());
   });
 
