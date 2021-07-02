@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.0
+
+Null safety support
+
 ## 0.8.0
 
 - Update dependencies
